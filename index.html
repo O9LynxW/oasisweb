@@ -1,215 +1,979 @@
-<!DOCTYPE HTML>
-<!--
-	Forty by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Forty by HTML5 UP</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raika Development Planner</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e8e8e8;
+            padding: 20px;
+            min-height: 100vh;
+        }
 
-				<!-- Header -->
-					<header id="header" class="alt">
-						<a href="index.html" class="logo"><strong>Forty</strong> <span>by HTML5 UP</span></a>
-						<nav>
-							<a href="#menu">Menu</a>
-						</nav>
-					</header>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-				<!-- Menu -->
-					<nav id="menu">
-						<ul class="links">
-							<li><a href="index.html">Home</a></li>
-							<li><a href="landing.html">Landing</a></li>
-							<li><a href="generic.html">Generic</a></li>
-							<li><a href="elements.html">Elements</a></li>
-						</ul>
-						<ul class="actions stacked">
-							<li><a href="#" class="button primary fit">Get Started</a></li>
-							<li><a href="#" class="button fit">Log In</a></li>
-						</ul>
-					</nav>
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #ff6b6b;
+            font-size: 2.5em;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+        }
 
-				<!-- Banner -->
-					<section id="banner" class="major">
-						<div class="inner">
-							<header class="major">
-								<h1>Hi, my name is Forty</h1>
-							</header>
-							<div class="content">
-								<p>A responsive site template designed by HTML5 UP<br />
-								and released under the Creative Commons.</p>
-								<ul class="actions">
-									<li><a href="#one" class="button next scrolly">Get Started</a></li>
-								</ul>
-							</div>
-						</div>
-					</section>
+        /* Music Player Styles */
+        .music-player {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
 
-				<!-- Main -->
-					<div id="main">
+        .music-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
 
-						<!-- One -->
-							<section id="one" class="tiles">
-								<article>
-									<span class="image">
-										<img src="images/pic01.jpg" alt="" />
-									</span>
-									<header class="major">
-										<h3><a href="landing.html" class="link">Aliquam</a></h3>
-										<p>Ipsum dolor sit amet</p>
-									</header>
-								</article>
-								<article>
-									<span class="image">
-										<img src="images/pic02.jpg" alt="" />
-									</span>
-									<header class="major">
-										<h3><a href="landing.html" class="link">Tempus</a></h3>
-										<p>feugiat amet tempus</p>
-									</header>
-								</article>
-								<article>
-									<span class="image">
-										<img src="images/pic03.jpg" alt="" />
-									</span>
-									<header class="major">
-										<h3><a href="landing.html" class="link">Magna</a></h3>
-										<p>Lorem etiam nullam</p>
-									</header>
-								</article>
-								<article>
-									<span class="image">
-										<img src="images/pic04.jpg" alt="" />
-									</span>
-									<header class="major">
-										<h3><a href="landing.html" class="link">Ipsum</a></h3>
-										<p>Nisl sed aliquam</p>
-									</header>
-								</article>
-								<article>
-									<span class="image">
-										<img src="images/pic05.jpg" alt="" />
-									</span>
-									<header class="major">
-										<h3><a href="landing.html" class="link">Consequat</a></h3>
-										<p>Ipsum dolor sit amet</p>
-									</header>
-								</article>
-								<article>
-									<span class="image">
-										<img src="images/pic06.jpg" alt="" />
-									</span>
-									<header class="major">
-										<h3><a href="landing.html" class="link">Etiam</a></h3>
-										<p>Feugiat amet tempus</p>
-									</header>
-								</article>
-							</section>
+        .music-button {
+            background: #ff6b6b;
+            color: #1a1a2e;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
 
-						<!-- Two -->
-							<section id="two">
-								<div class="inner">
-									<header class="major">
-										<h2>Massa libero</h2>
-									</header>
-									<p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus pharetra. Pellentesque condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus amet pharetra et feugiat tempus.</p>
-									<ul class="actions">
-										<li><a href="landing.html" class="button next">Get Started</a></li>
-									</ul>
-								</div>
-							</section>
+        .music-button:hover {
+            background: #ff8e53;
+            transform: scale(1.05);
+        }
 
-					</div>
+        .music-upload {
+            display: none;
+        }
 
-				<!-- Contact -->
-					<section id="contact">
-						<div class="inner">
-							<section>
-								<form method="post" action="#">
-									<div class="fields">
-										<div class="field half">
-											<label for="name">Name</label>
-											<input type="text" name="name" id="name" />
-										</div>
-										<div class="field half">
-											<label for="email">Email</label>
-											<input type="text" name="email" id="email" />
-										</div>
-										<div class="field">
-											<label for="message">Message</label>
-											<textarea name="message" id="message" rows="6"></textarea>
-										</div>
-									</div>
-									<ul class="actions">
-										<li><input type="submit" value="Send Message" class="primary" /></li>
-										<li><input type="reset" value="Clear" /></li>
-									</ul>
-								</form>
-							</section>
-							<section class="split">
-								<section>
-									<div class="contact-method">
-										<span class="icon solid alt fa-envelope"></span>
-										<h3>Email</h3>
-										<a href="#">information@untitled.tld</a>
-									</div>
-								</section>
-								<section>
-									<div class="contact-method">
-										<span class="icon solid alt fa-phone"></span>
-										<h3>Phone</h3>
-										<span>(000) 000-0000 x12387</span>
-									</div>
-								</section>
-								<section>
-									<div class="contact-method">
-										<span class="icon solid alt fa-home"></span>
-										<h3>Address</h3>
-										<span>1234 Somewhere Road #5432<br />
-										Nashville, TN 00000<br />
-										United States of America</span>
-									</div>
-								</section>
-							</section>
-						</div>
-					</section>
+        .upload-label {
+            background: rgba(255, 107, 107, 0.2);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px dashed rgba(255, 107, 107, 0.5);
+            transition: all 0.3s ease;
+        }
 
-				<!-- Footer -->
-					<footer id="footer">
-						<div class="inner">
-							<ul class="icons">
-								<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-								<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-								<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-								<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-								<li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-							</ul>
-							<ul class="copyright">
-								<li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
-							</ul>
-						</div>
-					</footer>
+        .upload-label:hover {
+            background: rgba(255, 107, 107, 0.3);
+            border-color: #ff6b6b;
+        }
 
-			</div>
+        .music-info {
+            flex: 1;
+            min-width: 200px;
+        }
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+        .music-title {
+            font-weight: 600;
+            color: #ff6b6b;
+            margin-bottom: 5px;
+        }
 
-	</body>
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .volume-slider {
+            width: 100px;
+            accent-color: #ff6b6b;
+        }
+
+        .credits {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .credit-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            border-radius: 12px;
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .credit-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .credit-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid #ff6b6b;
+            object-fit: cover;
+        }
+
+        .credit-info {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .credit-name {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #ff6b6b;
+        }
+
+        .credit-role {
+            font-size: 0.9em;
+            color: #b8b8b8;
+        }
+
+        .edit-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 107, 107, 0.3);
+            border: none;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .credit-card:hover .edit-icon {
+            opacity: 1;
+        }
+
+        .edit-icon:hover {
+            background: rgba(255, 107, 107, 0.5);
+        }
+
+        .image-upload-section {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px dashed rgba(255, 107, 107, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .image-upload-section h3 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+
+        .image-input {
+            display: none;
+        }
+
+        .image-upload-btn {
+            background: #ff6b6b;
+            color: #1a1a2e;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .image-upload-btn:hover {
+            background: #ff8e53;
+            transform: scale(1.05);
+        }
+
+        .uploaded-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .image-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 107, 107, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .image-item:hover {
+            transform: scale(1.05);
+            border-color: #ff6b6b;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .remove-image {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255, 107, 107, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-item:hover .remove-image {
+            opacity: 1;
+        }
+
+        .timeline {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 107, 107, 0.3);
+        }
+
+        .timeline-item {
+            display: inline-block;
+            margin: 0 15px;
+            padding: 8px 15px;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 107, 107, 0.2);
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #ff6b6b;
+            border-bottom: 2px solid rgba(255, 107, 107, 0.3);
+            padding-bottom: 10px;
+        }
+
+        .task {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ff6b6b;
+            transition: all 0.3s ease;
+        }
+
+        .task:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .task-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 8px;
+        }
+
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #ff6b6b;
+        }
+
+        .task-name {
+            font-size: 1.1em;
+            font-weight: 600;
+            flex-grow: 1;
+        }
+
+        .task-desc {
+            margin-left: 39px;
+            color: #b8b8b8;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .completed {
+            opacity: 0.6;
+        }
+
+        .completed .task-name {
+            text-decoration: line-through;
+        }
+
+        .keybinds {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .keybind {
+            background: rgba(255, 107, 107, 0.1);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(255, 107, 107, 0.3);
+        }
+
+        .key {
+            display: inline-block;
+            background: #ff6b6b;
+            color: #1a1a2e;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b 0%, #ff8e53 100%);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .notes {
+            background: rgba(255, 107, 107, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px dashed rgba(255, 107, 107, 0.3);
+            margin-top: 15px;
+        }
+
+        .notes-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #ff6b6b;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #16213e;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #ff6b6b;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .modal-title {
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            border-radius: 8px;
+            color: #e8e8e8;
+            font-size: 1em;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn.save {
+            background: #ff6b6b;
+            color: #1a1a2e;
+        }
+
+        .modal-btn.cancel {
+            background: rgba(255, 255, 255, 0.1);
+            color: #e8e8e8;
+        }
+
+        .modal-btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Raika Development Planner</h1>
+        
+        <!-- Music Player -->
+        <div class="music-player">
+            <div class="music-controls">
+                <button class="music-button" id="playBtn">▶ Play</button>
+                <button class="music-button" id="pauseBtn" style="display: none;">⏸ Pause</button>
+                <label for="musicUpload" class="upload-label">📁 Upload Music</label>
+                <input type="file" id="musicUpload" class="music-upload" accept="audio/*">
+            </div>
+            <div class="music-info">
+                <div class="music-title" id="musicTitle">No music loaded</div>
+                <div class="volume-control">
+                    <span>🔊</span>
+                    <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="50">
+                    <span id="volumeValue">50%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image Upload Section -->
+        <div class="image-upload-section">
+            <h3>📸 Image Gallery</h3>
+            <button class="image-upload-btn" id="imageUploadBtn">Upload Images</button>
+            <input type="file" id="imageUpload" class="image-input" accept="image/*" multiple>
+            <div class="uploaded-images" id="imageGallery"></div>
+        </div>
+        
+        <div class="credits" id="creditsContainer">
+            <div class="credit-card" data-person="oasis">
+                <img src="https://cdn.discordapp.com/attachments/1382046395703234734/1458935841467662428/image.png" alt="Oasis" class="credit-avatar">
+                <div class="credit-info">
+                    <div class="credit-name">Oasis</div>
+                    <div class="credit-role">VFX & Animations</div>
+                </div>
+                <button class="edit-icon" onclick="editCredit('oasis')">✏️ Edit</button>
+            </div>
+            <div class="credit-card" data-person="knobus">
+                <img src="https://cdn.discordapp.com/attachments/1382046395703234734/1458935814863196160/image.png" alt="Knobus" class="credit-avatar">
+                <div class="credit-info">
+                    <div class="credit-name">Knobus</div>
+                    <div class="credit-role">Main Scripting</div>
+                </div>
+                <button class="edit-icon" onclick="editCredit('knobus')">✏️ Edit</button>
+            </div>
+        </div>
+        
+        <div class="timeline">
+            <div class="timeline-item"><strong>Jan 8:</strong> Shikai Complete</div>
+            <div class="timeline-item"><strong>Jan 8-9:</strong> Bankai Moves + Cutscene</div>
+            <div class="timeline-item"><strong>Jan 8:</strong> All SFX</div>
+            <div class="timeline-item"><strong>Jan 10:</strong> Full Polish</div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress">0%</div>
+        </div>
+
+        <div class="section" style="border: 3px solid #ff6b6b; box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);">
+            <div class="section-title" style="font-size: 2.2em; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">🔥 PRIORITY TASKS - DO THESE NEXT 🔥</div>
+            
+            <div class="task" data-task="audio-1">
+                <div class="task-header">
+                    <input type="checkbox" class="checkbox">
+                    <span class="task-name" style="font-size: 1.3em; font-weight: 800;">ALL SFX IMPLEMENTATION</span>
+                </div>
+                <div class="task-desc" style="font-size: 1.1em; font-weight: 600;">Add sound effects for all moves (Target: Jan 8)</div>
+            </div>
+
+            <div class="task completed" data-task="bankai-2">
+                <div class="task-header">
+                    <input type="checkbox" class="checkbox" checked>
+                    <span class="task-name" style="font-size: 1.2em; font-weight: 700;">Tornado VFX - Honoo no Tatsumaki (G Move)</span>
+                </div>
+                <div class="task-desc" style="font-size: 1.05em;">Create tornado visual effects for Bankai G move</div>
+            </div>
+
+            <div class="task completed" data-task="bankai-goen">
+                <div class="task-header">
+                    <input type="checkbox" class="checkbox" checked>
+                    <span class="task-name" style="font-size: 1.2em; font-weight: 700;">Goen Ryuga VFX (T Move)</span>
+                </div>
+                <div class="task-desc" style="font-size: 1.05em;">Complete Goen Ryuga visual effects</div>
+            </div>
+
+            <div class="task" data-task="audio-2">
+                <div class="task-header">
+                    <input type="checkbox" class="checkbox">
+                    <span class="task-name">Music Upload</span>
+                </div>
+                <div class="task-desc">Upload and integrate background music</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Shikai Tasks</div>
+            
+            <div class="task completed" data-task="shikai-1">
+                <div class="task-header">
+                    <input type="checkbox" class="checkbox" checked>
+                    <span class="task-name">Infernal Execution (X)</span>
+                </div>
+                <div class="task-desc">Blood stab VFX needs finishing</div>
+            </div>
+
+            <div class="task completed" data-task="shikai-2">
+                <div class="task-header">
+                    <input type="checkbox" class="checkbox" checked>
+                    <span class="task-name">Shikai Crit</span>
+                </div>
+                <div class="task-desc">VFX needs changing</div>
+            </div>
+
+            <div class="task" data-task="shikai-3">
+                <div class="task-header">
+                    <input type="checkbox" class="checkbox">
+                    <span class="task-name">Blazing Assault (Z)</span>
+                </div>
+                <div class="task-desc">C-frame fix + Thrust VFX replace</div>
+            </div>
+
+            <div class="task" data-task="shikai-4">
+                <div class="task-header">
+                    <input type="checkbox" class="checkbox">
+                    <span class="task-name">Kaenkyu (C)</span>
+                </div>
+                <div class="task-desc">CFrame adjustment + sounds</div>
+            </div>
+
+            <div class="task completed" data-task="shikai-5">
+                <div class="task-header">
+                    <input type="checkbox" class="checkbox" checked>
+                    <span class="task-name">Goen Ryuga (T)</span>
+                </div>
+                <div class="task-desc">Needs to be made</div>
+            </div>
+
+            <div class="task" data-task="shikai-6">
+                <div class="task-header">
+                    <input type="checkbox" class="checkbox">
+                    <span class="task-name">ALL Shikai Polish</span>
+                </div>
+                <div class="task-desc">Final polish pass on all Shikai moves</div>
+            </div>
+
+            <div class="notes">
+                <div class="notes-title">Shikai Keybinds:</div>
+                <div class="keybinds">
+                    <div class="keybind"><span class="key">Z</span> Blazing Assault</div>
+                    <div class="keybind"><span class="key">X</span> Infernal Execution</div>
+                    <div class="keybind"><span class="key">C</span> Kaenkyu</div>
+                    <div class="keybind"><span class="key">T</span> Goen Ryuga</div>
+                    <div class="keybind"><span class="key">G</span> Honoo no Tatsumaki</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Bankai Tasks</div>
+            
+            <div class="task" data-task="bankai-1">
+                <div class="task-header">
+                    <input type="checkbox" class="checkbox">
+                    <span class="task-name">Bankai System Setup</span>
+                </div>
+                <div class="task-desc">Needs to be made for custom cutscene integration</div>
+            </div>
+
+            <div class="task" data-task="bankai-3">
+                <div class="task-header">
+                    <input type="checkbox" class="checkbox">
+                    <span class="task-name">Bankai Moves</span>
+                </div>
+                <div class="task-desc">Complete all Bankai move implementations</div>
+            </div>
+
+            <div class="task" data-task="bankai-4">
+                <div class="task-header">
+                    <input type="checkbox" class="checkbox">
+                    <span class="task-name">Custom Cutscene</span>
+                </div>
+                <div class="task-desc">Finish Bankai transformation cutscene</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Miscellaneous</div>
+            
+            <div class="task" data-task="misc-1">
+                <div class="task-header">
+                    <input type="checkbox" class="checkbox">
+                    <span class="task-name">Additional Tasks</span>
+                </div>
+                <div class="task-desc">Other miscellaneous items to complete</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Polish Tasks</div>
+            
+            <div class="task" data-task="polish-1">
+                <div class="task-header">
+                    <input type="checkbox" class="checkbox">
+                    <span class="task-name">Full Polish Pass</span>
+                </div>
+                <div class="task-desc">Final polish and bug fixes (Target: Jan 10)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Credit Modal -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <h2 class="modal-title">Edit Credit</h2>
+            <input type="text" class="modal-input" id="editName" placeholder="Name">
+            <input type="text" class="modal-input" id="editRole" placeholder="Role">
+            <label for="editImage" class="upload-label" style="display: block; margin-bottom: 15px; text-align: center;">📁 Upload New Image</label>
+            <input type="file" id="editImage" class="music-upload" accept="image/*">
+            <div class="modal-buttons">
+                <button class="modal-btn cancel" onclick="closeModal()">Cancel</button>
+                <button class="modal-btn save" onclick="saveCredit()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Task Management
+        const tasks = {};
+        const checkboxes = document.querySelectorAll('.checkbox');
+        
+        // Music Player
+        let audioPlayer = null;
+        const playBtn = document.getElementById('playBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const musicUpload = document.getElementById('musicUpload');
+        const musicTitle = document.getElementById('musicTitle');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const volumeValue = document.getElementById('volumeValue');
+
+        // Image Gallery
+        const imageUpload = document.getElementById('imageUpload');
+        const imageUploadBtn = document.getElementById('imageUploadBtn');
+        const imageGallery = document.getElementById('imageGallery');
+        let uploadedImages = [];
+
+        // Credit Editing
+        let currentEditingPerson = null;
+        const credits = {
+            oasis: { name: 'Oasis', role: 'VFX & Animations', image: 'https://cdn.discordapp.com/attachments/1382046395703234734/1458935841467662428/image.png' },
+            knobus: { name: 'Knobus', role: 'Main Scripting', image: 'https://cdn.discordapp.com/attachments/1382046395703234734/1458935814863196160/image.png' }
+        };
+
+        // FIXED: Connect the button to trigger file input
+        imageUploadBtn.addEventListener('click', function() {
+            imageUpload.click();
+        });
+
+        // Load saved data
+        function loadTasks() {
+            const saved = localStorage.getItem('raika_tasks');
+            if (saved) {
+                Object.assign(tasks, JSON.parse(saved));
+            }
+            
+            checkboxes.forEach(checkbox => {
+                const task = checkbox.closest('.task');
+                const taskId = task.dataset.task;
+                if (tasks[taskId]) {
+                    checkbox.checked = true;
+                    task.classList.add('completed');
+                }
+            });
+            
+            updateProgress();
+        }
+
+        function loadImages() {
+            const saved = localStorage.getItem('raika_images');
+            if (saved) {
+                uploadedImages = JSON.parse(saved);
+                renderImages();
+            }
+        }
+
+        function loadCredits() {
+            const saved = localStorage.getItem('raika_credits');
+            if (saved) {
+                Object.assign(credits, JSON.parse(saved));
+                renderCredits();
+            }
+        }
+
+        function saveTasks() {
+            localStorage.setItem('raika_tasks', JSON.stringify(tasks));
+        }
+
+        function saveImages() {
+            localStorage.setItem('raika_images', JSON.stringify(uploadedImages));
+        }
+
+        function saveCredits() {
+            localStorage.setItem('raika_credits', JSON.stringify(credits));
+        }
+
+        function updateProgress() {
+            const total = checkboxes.length;
+            const completed = Object.values(tasks).filter(v => v).length;
+            const percentage = Math.round((completed / total) * 100);
+            
+            const progressBar = document.getElementById('progress');
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = percentage + '%';
+        }
+
+        // Task checkboxes
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const task = this.closest('.task');
+                const taskId = task.dataset.task;
+                
+                if (this.checked) {
+                    task.classList.add('completed');
+                    tasks[taskId] = true;
+                } else {
+                    task.classList.remove('completed');
+                    tasks[taskId] = false;
+                }
+                
+                saveTasks();
+                updateProgress();
+            });
+        });
+
+        // Music Player Functions
+        musicUpload.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                if (audioPlayer) {
+                    audioPlayer.pause();
+                }
+                
+                const url = URL.createObjectURL(file);
+                audioPlayer = new Audio(url);
+                audioPlayer.volume = volumeSlider.value / 100;
+                
+                musicTitle.textContent = file.name;
+                playBtn.style.display = 'inline-block';
+                pauseBtn.style.display = 'none';
+            }
+        });
+
+        playBtn.addEventListener('click', function() {
+            if (audioPlayer) {
+                audioPlayer.play();
+                playBtn.style.display = 'none';
+                pauseBtn.style.display = 'inline-block';
+            }
+        });
+
+        pauseBtn.addEventListener('click', function() {
+            if (audioPlayer) {
+                audioPlayer.pause();
+                playBtn.style.display = 'inline-block';
+                pauseBtn.style.display = 'none';
+            }
+        });
+
+        volumeSlider.addEventListener('input', function() {
+            const volume = this.value;
+            volumeValue.textContent = volume + '%';
+            if (audioPlayer) {
+                audioPlayer.volume = volume / 100;
+            }
+        });
+
+        // Image Gallery Functions - FIXED
+        imageUpload.addEventListener('change', function(e) {
+            const files = Array.from(e.target.files);
+            console.log('Files selected:', files.length); // Debug log
+            
+            files.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    console.log('File loaded:', file.name); // Debug log
+                    uploadedImages.push({
+                        id: Date.now() + Math.random(),
+                        data: event.target.result,
+                        name: file.name
+                    });
+                    saveImages();
+                    renderImages();
+                };
+                reader.readAsDataURL(file);
+            });
+            
+            // Reset input so same file can be selected again
+            e.target.value = '';
+        });
+
+        function renderImages() {
+            console.log('Rendering images:', uploadedImages.length); // Debug log
+            imageGallery.innerHTML = '';
+            uploadedImages.forEach(image => {
+                const div = document.createElement('div');
+                div.className = 'image-item';
+                div.innerHTML = `
+                    <img src="${image.data}" alt="${image.name}">
+                    <button class="remove-image" onclick="removeImage(${image.id})">✕</button>
+                `;
+                imageGallery.appendChild(div);
+            });
+        }
+
+        function removeImage(id) {
+            uploadedImages = uploadedImages.filter(img => img.id !== id);
+            saveImages();
+            renderImages();
+        }
+
+        // Credit Editing Functions
+        function editCredit(person) {
+            currentEditingPerson = person;
+            const credit = credits[person];
+            
+            document.getElementById('editName').value = credit.name;
+            document.getElementById('editRole').value = credit.role;
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('editModal').classList.remove('active');
+            currentEditingPerson = null;
+            // Reset file input
+            document.getElementById('editImage').value = '';
+        }
+
+        function saveCredit() {
+            if (!currentEditingPerson) return;
+            
+            const name = document.getElementById('editName').value;
+            const role = document.getElementById('editRole').value;
+            const imageFile = document.getElementById('editImage').files[0];
+            
+            credits[currentEditingPerson].name = name;
+            credits[currentEditingPerson].role = role;
+            
+            if (imageFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    credits[currentEditingPerson].image = e.target.result;
+                    saveCredits();
+                    renderCredits();
+                    closeModal();
+                };
+                reader.readAsDataURL(imageFile);
+            } else {
+                saveCredits();
+                renderCredits();
+                closeModal();
+            }
+        }
+
+        function renderCredits() {
+            const container = document.getElementById('creditsContainer');
+            container.innerHTML = '';
+            
+            Object.keys(credits).forEach(key => {
+                const credit = credits[key];
+                const div = document.createElement('div');
+                div.className = 'credit-card';
+                div.dataset.person = key;
+                div.innerHTML = `
+                    <img src="${credit.image}" alt="${credit.name}" class="credit-avatar">
+                    <div class="credit-info">
+                        <div class="credit-name">${credit.name}</div>
+                        <div class="credit-role">${credit.role}</div>
+                    </div>
+                    <button class="edit-icon" onclick="editCredit('${key}')">✏️ Edit</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('editModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Initialize
+        loadTasks();
+        loadImages();
+        loadCredits();
+    </script>
+</body>
 </html>
