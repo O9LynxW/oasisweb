@@ -3,977 +3,927 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raika Development Planner</title>
+    <title>Oasis - VFX & Lua U Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-black: #000000;
+            --bg-dark: #0a0a0a;
+            --bg-card: #111111;
+            --purple: #9333ea;
+            --purple-dark: #7e22ce;
+            --red: #dc2626;
+            --red-dark: #991b1b;
+            --white: #ffffff;
+            --gray: #737373;
+            --gray-light: #a3a3a3;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #e8e8e8;
-            padding: 20px;
-            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-black);
+            color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 10px;
-            color: #ff6b6b;
-            font-size: 2.5em;
-            text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
-        }
-
-        /* Music Player Styles */
-        .music-player {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 107, 107, 0.3);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .music-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex: 1;
-        }
-
-        .music-button {
-            background: #ff6b6b;
-            color: #1a1a2e;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .music-button:hover {
-            background: #ff8e53;
-            transform: scale(1.05);
-        }
-
-        .music-upload {
-            display: none;
-        }
-
-        .upload-label {
-            background: rgba(255, 107, 107, 0.2);
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            border: 2px dashed rgba(255, 107, 107, 0.5);
-            transition: all 0.3s ease;
-        }
-
-        .upload-label:hover {
-            background: rgba(255, 107, 107, 0.3);
-            border-color: #ff6b6b;
-        }
-
-        .music-info {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .music-title {
-            font-weight: 600;
-            color: #ff6b6b;
-            margin-bottom: 5px;
-        }
-
-        .volume-control {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .volume-slider {
-            width: 100px;
-            accent-color: #ff6b6b;
-        }
-
-        .credits {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .credit-card {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 107, 107, 0.3);
-            border-radius: 12px;
-            padding: 15px 25px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .credit-card:hover {
-            background: rgba(255, 255, 255, 0.12);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
-        }
-
-        .credit-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: 2px solid #ff6b6b;
-            object-fit: cover;
-        }
-
-        .credit-info {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-        }
-
-        .credit-name {
-            font-size: 1.2em;
-            font-weight: 600;
-            color: #ff6b6b;
-        }
-
-        .credit-role {
-            font-size: 0.9em;
-            color: #b8b8b8;
-        }
-
-        .edit-icon {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(255, 107, 107, 0.3);
-            border: none;
-            color: #fff;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.8em;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .credit-card:hover .edit-icon {
-            opacity: 1;
-        }
-
-        .edit-icon:hover {
-            background: rgba(255, 107, 107, 0.5);
-        }
-
-        .image-upload-section {
-            background: rgba(255, 255, 255, 0.08);
-            border: 2px dashed rgba(255, 107, 107, 0.3);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .image-upload-section h3 {
-            color: #ff6b6b;
-            margin-bottom: 15px;
-        }
-
-        .image-input {
-            display: none;
-        }
-
-        .image-upload-btn {
-            background: #ff6b6b;
-            color: #1a1a2e;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1em;
-            transition: all 0.3s ease;
-        }
-
-        .image-upload-btn:hover {
-            background: #ff8e53;
-            transform: scale(1.05);
-        }
-
-        .uploaded-images {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .image-item {
-            position: relative;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 2px solid rgba(255, 107, 107, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .image-item:hover {
-            transform: scale(1.05);
-            border-color: #ff6b6b;
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
-        }
-
-        .image-item img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-        }
-
-        .remove-image {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: rgba(255, 107, 107, 0.9);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 25px;
-            height: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .image-item:hover .remove-image {
-            opacity: 1;
-        }
-
-        .timeline {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 107, 107, 0.3);
-        }
-
-        .timeline-item {
-            display: inline-block;
-            margin: 0 15px;
-            padding: 8px 15px;
-            background: rgba(255, 107, 107, 0.1);
-            border-radius: 5px;
-            font-size: 0.9em;
-        }
-
-        .section {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(255, 107, 107, 0.2);
-        }
-
-        .section-title {
-            font-size: 1.8em;
-            margin-bottom: 20px;
-            color: #ff6b6b;
-            border-bottom: 2px solid rgba(255, 107, 107, 0.3);
-            padding-bottom: 10px;
-        }
-
-        .task {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            border-left: 4px solid #ff6b6b;
-            transition: all 0.3s ease;
-        }
-
-        .task:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateX(5px);
-        }
-
-        .task-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 8px;
-        }
-
-        .checkbox {
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-            accent-color: #ff6b6b;
-        }
-
-        .task-name {
-            font-size: 1.1em;
-            font-weight: 600;
-            flex-grow: 1;
-        }
-
-        .task-desc {
-            margin-left: 39px;
-            color: #b8b8b8;
-            font-size: 0.95em;
-            line-height: 1.5;
-        }
-
-        .completed {
-            opacity: 0.6;
-        }
-
-        .completed .task-name {
-            text-decoration: line-through;
-        }
-
-        .keybinds {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .keybind {
-            background: rgba(255, 107, 107, 0.1);
-            padding: 12px;
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid rgba(255, 107, 107, 0.3);
-        }
-
-        .key {
-            display: inline-block;
-            background: #ff6b6b;
-            color: #1a1a2e;
-            padding: 5px 12px;
-            border-radius: 5px;
-            font-weight: bold;
-            margin-right: 8px;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            overflow: hidden;
-            margin: 20px 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #ff6b6b 0%, #ff8e53 100%);
-            transition: width 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        .notes {
-            background: rgba(255, 107, 107, 0.05);
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px dashed rgba(255, 107, 107, 0.3);
-            margin-top: 15px;
-        }
-
-        .notes-title {
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #ff6b6b;
-        }
-
-        .modal {
-            display: none;
+        /* Animated Grid Background */
+        .grid-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background-image: 
+                linear-gradient(rgba(147, 51, 234, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(147, 51, 234, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridMove 30s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, 40px); }
+        }
+
+        /* Glow Effects */
+        .glow-orb {
+            position: fixed;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .glow-orb-1 {
+            top: -300px;
+            right: -300px;
+            background: var(--purple);
+            animation: float1 25s ease-in-out infinite;
+        }
+
+        .glow-orb-2 {
+            bottom: -300px;
+            left: -300px;
+            background: var(--red);
+            animation: float2 30s ease-in-out infinite;
+        }
+
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-150px, 150px) scale(1.1); }
+        }
+
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(150px, -150px) scale(1.1); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 25px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             z-index: 1000;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(30px) saturate(180%);
+            border-bottom: 1px solid rgba(147, 51, 234, 0.2);
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--purple), var(--red), var(--white));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 50px;
+        }
+
+        nav a {
+            color: var(--gray-light);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--purple), var(--red));
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        nav a:hover {
+            color: var(--white);
+        }
+
+        nav a:hover::before {
+            width: 100%;
+        }
+
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background: rgba(17, 17, 17, 0.95);
+            backdrop-filter: blur(30px) saturate(180%);
+            padding: 25px 30px;
+            border-radius: 20px;
+            z-index: 1000;
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            box-shadow: 0 20px 60px rgba(147, 51, 234, 0.4);
+            transition: all 0.4s ease;
+            min-width: 320px;
+        }
+
+        .music-player:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 70px rgba(147, 51, 234, 0.6);
+            border-color: var(--purple);
+        }
+
+        .track-info {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .track-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .track-artist {
+            font-size: 13px;
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        .music-controls {
+            display: flex;
             align-items: center;
             justify-content: center;
+            gap: 20px;
+            margin-bottom: 18px;
         }
 
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: #16213e;
-            padding: 30px;
-            border-radius: 15px;
-            border: 2px solid #ff6b6b;
-            max-width: 500px;
-            width: 90%;
-        }
-
-        .modal-title {
-            color: #ff6b6b;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-        }
-
-        .modal-input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 107, 107, 0.3);
-            border-radius: 8px;
-            color: #e8e8e8;
-            font-size: 1em;
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-        }
-
-        .modal-btn {
-            padding: 10px 20px;
+        .play-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--purple), var(--red));
             border: none;
-            border-radius: 8px;
+            color: white;
             cursor: pointer;
-            font-weight: bold;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(147, 51, 234, 0.4);
         }
 
-        .modal-btn.save {
-            background: #ff6b6b;
-            color: #1a1a2e;
+        .play-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 32px rgba(147, 51, 234, 0.6);
         }
 
-        .modal-btn.cancel {
+        .play-btn:active {
+            transform: scale(0.98);
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .volume-control i {
+            color: var(--purple);
+            font-size: 18px;
+        }
+
+        .volume-slider {
+            width: 110px;
+            height: 6px;
             background: rgba(255, 255, 255, 0.1);
-            color: #e8e8e8;
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+            cursor: pointer;
         }
 
-        .modal-btn:hover {
-            transform: scale(1.05);
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(135deg, var(--purple), var(--red));
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(147, 51, 234, 0.5);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            padding: 120px 60px 80px;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 1100px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .profile-pic {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            margin: 0 auto 40px;
+            border: 5px solid transparent;
+            background: linear-gradient(var(--bg-dark), var(--bg-dark)) padding-box,
+                        linear-gradient(135deg, var(--purple), var(--red)) border-box;
+            padding: 6px;
+            animation: pulse 4s ease-in-out infinite;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(147, 51, 234, 0.5);
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .hero h1 {
+            font-size: 96px;
+            font-weight: 900;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, var(--white) 0%, var(--purple) 50%, var(--red) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -4px;
+            line-height: 1;
+        }
+
+        .hero .subtitle {
+            font-size: 28px;
+            color: var(--gray-light);
+            margin-bottom: 18px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .hero .tagline {
+            font-size: 20px;
+            color: var(--gray);
+            margin-bottom: 50px;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .social-link {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: rgba(17, 17, 17, 0.8);
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--gray-light);
+        }
+
+        .social-link:hover {
+            background: linear-gradient(135deg, var(--purple), var(--red));
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(147, 51, 234, 0.6);
+            border-color: transparent;
+            color: var(--white);
+        }
+
+       
+        /* Section Styles */
+        section {
+            position: relative;
+            padding: 100px 60px;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 56px;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 70px;
+            background: linear-gradient(135deg, var(--white), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -2px;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 35px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: rgba(17, 17, 17, 0.7);
+            backdrop-filter: blur(30px) saturate(180%);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid rgba(147, 51, 234, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeInScale 0.6s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--purple);
+            box-shadow: 0 25px 60px rgba(147, 51, 234, 0.5);
+            background: rgba(17, 17, 17, 0.9);
+        }
+
+        .project-icon {
+            font-size: 52px;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, var(--purple), var(--red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .project-card h3 {
+            font-size: 26px;
+            margin-bottom: 18px;
+            color: var(--white);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .project-card p {
+            color: var(--gray-light);
+            line-height: 1.7;
+            margin-bottom: 25px;
+            font-size: 15px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tag {
+            padding: 8px 16px;
+            background: rgba(147, 51, 234, 0.1);
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--purple);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Info Cards */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 35px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .info-card {
+            background: rgba(17, 17, 17, 0.7);
+            backdrop-filter: blur(30px) saturate(180%);
+            border-radius: 24px;
+            padding: 45px;
+            border: 1px solid rgba(147, 51, 234, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .info-card:hover {
+            border-color: var(--red);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(220, 38, 38, 0.4);
+            background: rgba(17, 17, 17, 0.9);
+        }
+
+        .info-card h3 {
+            font-size: 26px;
+            margin-bottom: 25px;
+            color: var(--white);
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .info-card h3 i {
+            color: var(--purple);
+            font-size: 28px;
+        }
+
+        .info-card ul {
+            list-style: none;
+        }
+
+        .info-card li {
+            color: var(--gray-light);
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .info-card li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--purple);
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* Contributions Section */
+        .contributions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .contribution-card {
+            background: rgba(17, 17, 17, 0.7);
+            backdrop-filter: blur(30px) saturate(180%);
+            border-radius: 20px;
+            padding: 30px;
+            border-left: 4px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .contribution-card:nth-child(4n+1) {
+            border-left-color: var(--purple);
+        }
+
+        .contribution-card:nth-child(4n+2) {
+            border-left-color: var(--red);
+        }
+
+        .contribution-card:nth-child(4n+3) {
+            border-left-color: var(--white);
+        }
+
+        .contribution-card:nth-child(4n) {
+            border-left-color: var(--purple);
+        }
+
+        .contribution-card:hover {
+            transform: translateX(8px);
+            background: rgba(17, 17, 17, 0.9);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .contribution-date {
+            font-size: 12px;
+            color: var(--gray);
+            margin-bottom: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contribution-card h4 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--white);
+            font-weight: 800;
+            letter-spacing: -0.3px;
+        }
+
+        .contribution-card p {
+            color: var(--gray-light);
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.92);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2.5s infinite;
+            color: var(--purple);
+            font-size: 36px;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-12px); }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 20px 30px;
+            }
+
+            nav ul {
+                gap: 25px;
+                font-size: 11px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .hero h1 {
+                font-size: 56px;
+            }
+
+            .hero .subtitle {
+                font-size: 20px;
+            }
+
+            .section-title {
+                font-size: 40px;
+            }
+
+            .aizen-image {
+                max-width: 100%;
+            }
+
+            .projects-grid,
+            .info-cards,
+            .contributions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .music-player {
+                min-width: auto;
+                right: 25px;
+                bottom: 25px;
+                padding: 20px 25px;
+            }
+
+            section {
+                padding: 80px 30px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Raika Development Planner</h1>
-        
-        <!-- Music Player -->
-        <div class="music-player">
-            <div class="music-controls">
-                <button class="music-button" id="playBtn">▶ Play</button>
-                <button class="music-button" id="pauseBtn" style="display: none;">⏸ Pause</button>
-                <label for="musicUpload" class="upload-label">📁 Upload Music</label>
-                <input type="file" id="musicUpload" class="music-upload" accept="audio/*">
-            </div>
-            <div class="music-info">
-                <div class="music-title" id="musicTitle">No music loaded</div>
-                <div class="volume-control">
-                    <span>🔊</span>
-                    <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="50">
-                    <span id="volumeValue">50%</span>
-                </div>
-            </div>
+    <!-- Animated Background -->
+    <div class="grid-bg"></div>
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">OASIS</div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#info">Info</a></li>
+            <li><a href="#contributions">Contributions</a></li>
+        </ul>
+    </nav>
+
+    <!-- Music Player -->
+    <div class="music-player">
+        <div class="track-info">
+            <div class="track-title">Fever</div>
+            <div class="track-artist">Buckshot</div>
         </div>
-
-        <!-- Image Upload Section -->
-        <div class="image-upload-section">
-            <h3>📸 Image Gallery</h3>
-            <button class="image-upload-btn" id="imageUploadBtn">Upload Images</button>
-            <input type="file" id="imageUpload" class="image-input" accept="image/*" multiple>
-            <div class="uploaded-images" id="imageGallery"></div>
-        </div>
-        
-        <div class="credits" id="creditsContainer">
-            <div class="credit-card" data-person="oasis">
-                <img src="https://cdn.discordapp.com/attachments/1382046395703234734/1458935841467662428/image.png" alt="Oasis" class="credit-avatar">
-                <div class="credit-info">
-                    <div class="credit-name">Oasis</div>
-                    <div class="credit-role">VFX & Animations</div>
-                </div>
-                <button class="edit-icon" onclick="editCredit('oasis')">✏️ Edit</button>
-            </div>
-            <div class="credit-card" data-person="knobus">
-                <img src="https://cdn.discordapp.com/attachments/1382046395703234734/1458935814863196160/image.png" alt="Knobus" class="credit-avatar">
-                <div class="credit-info">
-                    <div class="credit-name">Knobus</div>
-                    <div class="credit-role">Main Scripting</div>
-                </div>
-                <button class="edit-icon" onclick="editCredit('knobus')">✏️ Edit</button>
-            </div>
-        </div>
-        
-        <div class="timeline">
-            <div class="timeline-item"><strong>Jan 8:</strong> Shikai Complete</div>
-            <div class="timeline-item"><strong>Jan 8-9:</strong> Bankai Moves + Cutscene</div>
-            <div class="timeline-item"><strong>Jan 8:</strong> All SFX</div>
-            <div class="timeline-item"><strong>Jan 10:</strong> Full Polish</div>
-        </div>
-
-        <div class="progress-bar">
-            <div class="progress-fill" id="progress">0%</div>
-        </div>
-
-        <div class="section" style="border: 3px solid #ff6b6b; box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);">
-            <div class="section-title" style="font-size: 2.2em; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">🔥 PRIORITY TASKS - DO THESE NEXT 🔥</div>
-            
-            <div class="task" data-task="audio-1">
-                <div class="task-header">
-                    <input type="checkbox" class="checkbox">
-                    <span class="task-name" style="font-size: 1.3em; font-weight: 800;">ALL SFX IMPLEMENTATION</span>
-                </div>
-                <div class="task-desc" style="font-size: 1.1em; font-weight: 600;">Add sound effects for all moves (Target: Jan 8)</div>
-            </div>
-
-            <div class="task completed" data-task="bankai-2">
-                <div class="task-header">
-                    <input type="checkbox" class="checkbox" checked>
-                    <span class="task-name" style="font-size: 1.2em; font-weight: 700;">Tornado VFX - Honoo no Tatsumaki (G Move)</span>
-                </div>
-                <div class="task-desc" style="font-size: 1.05em;">Create tornado visual effects for Bankai G move</div>
-            </div>
-
-            <div class="task completed" data-task="bankai-goen">
-                <div class="task-header">
-                    <input type="checkbox" class="checkbox" checked>
-                    <span class="task-name" style="font-size: 1.2em; font-weight: 700;">Goen Ryuga VFX (T Move)</span>
-                </div>
-                <div class="task-desc" style="font-size: 1.05em;">Complete Goen Ryuga visual effects</div>
-            </div>
-
-            <div class="task" data-task="audio-2">
-                <div class="task-header">
-                    <input type="checkbox" class="checkbox">
-                    <span class="task-name">Music Upload</span>
-                </div>
-                <div class="task-desc">Upload and integrate background music</div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-title">Shikai Tasks</div>
-            
-            <div class="task completed" data-task="shikai-1">
-                <div class="task-header">
-                    <input type="checkbox" class="checkbox" checked>
-                    <span class="task-name">Infernal Execution (X)</span>
-                </div>
-                <div class="task-desc">Blood stab VFX needs finishing</div>
-            </div>
-
-            <div class="task completed" data-task="shikai-2">
-                <div class="task-header">
-                    <input type="checkbox" class="checkbox" checked>
-                    <span class="task-name">Shikai Crit</span>
-                </div>
-                <div class="task-desc">VFX needs changing</div>
-            </div>
-
-            <div class="task" data-task="shikai-3">
-                <div class="task-header">
-                    <input type="checkbox" class="checkbox">
-                    <span class="task-name">Blazing Assault (Z)</span>
-                </div>
-                <div class="task-desc">C-frame fix + Thrust VFX replace</div>
-            </div>
-
-            <div class="task" data-task="shikai-4">
-                <div class="task-header">
-                    <input type="checkbox" class="checkbox">
-                    <span class="task-name">Kaenkyu (C)</span>
-                </div>
-                <div class="task-desc">CFrame adjustment + sounds</div>
-            </div>
-
-            <div class="task completed" data-task="shikai-5">
-                <div class="task-header">
-                    <input type="checkbox" class="checkbox" checked>
-                    <span class="task-name">Goen Ryuga (T)</span>
-                </div>
-                <div class="task-desc">Needs to be made</div>
-            </div>
-
-            <div class="task" data-task="shikai-6">
-                <div class="task-header">
-                    <input type="checkbox" class="checkbox">
-                    <span class="task-name">ALL Shikai Polish</span>
-                </div>
-                <div class="task-desc">Final polish pass on all Shikai moves</div>
-            </div>
-
-            <div class="notes">
-                <div class="notes-title">Shikai Keybinds:</div>
-                <div class="keybinds">
-                    <div class="keybind"><span class="key">Z</span> Blazing Assault</div>
-                    <div class="keybind"><span class="key">X</span> Infernal Execution</div>
-                    <div class="keybind"><span class="key">C</span> Kaenkyu</div>
-                    <div class="keybind"><span class="key">T</span> Goen Ryuga</div>
-                    <div class="keybind"><span class="key">G</span> Honoo no Tatsumaki</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-title">Bankai Tasks</div>
-            
-            <div class="task" data-task="bankai-1">
-                <div class="task-header">
-                    <input type="checkbox" class="checkbox">
-                    <span class="task-name">Bankai System Setup</span>
-                </div>
-                <div class="task-desc">Needs to be made for custom cutscene integration</div>
-            </div>
-
-            <div class="task" data-task="bankai-3">
-                <div class="task-header">
-                    <input type="checkbox" class="checkbox">
-                    <span class="task-name">Bankai Moves</span>
-                </div>
-                <div class="task-desc">Complete all Bankai move implementations</div>
-            </div>
-
-            <div class="task" data-task="bankai-4">
-                <div class="task-header">
-                    <input type="checkbox" class="checkbox">
-                    <span class="task-name">Custom Cutscene</span>
-                </div>
-                <div class="task-desc">Finish Bankai transformation cutscene</div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-title">Miscellaneous</div>
-            
-            <div class="task" data-task="misc-1">
-                <div class="task-header">
-                    <input type="checkbox" class="checkbox">
-                    <span class="task-name">Additional Tasks</span>
-                </div>
-                <div class="task-desc">Other miscellaneous items to complete</div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-title">Polish Tasks</div>
-            
-            <div class="task" data-task="polish-1">
-                <div class="task-header">
-                    <input type="checkbox" class="checkbox">
-                    <span class="task-name">Full Polish Pass</span>
-                </div>
-                <div class="task-desc">Final polish and bug fixes (Target: Jan 10)</div>
+        <div class="music-controls">
+            <button class="play-btn" id="playBtn"><i class="fas fa-play"></i></button>
+            <div class="volume-control">
+                <i class="fas fa-volume-up"></i>
+                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="50">
             </div>
         </div>
     </div>
 
-    <!-- Edit Credit Modal -->
-    <div class="modal" id="editModal">
-        <div class="modal-content">
-            <h2 class="modal-title">Edit Credit</h2>
-            <input type="text" class="modal-input" id="editName" placeholder="Name">
-            <input type="text" class="modal-input" id="editRole" placeholder="Role">
-            <label for="editImage" class="upload-label" style="display: block; margin-bottom: 15px; text-align: center;">📁 Upload New Image</label>
-            <input type="file" id="editImage" class="music-upload" accept="image/*">
-            <div class="modal-buttons">
-                <button class="modal-btn cancel" onclick="closeModal()">Cancel</button>
-                <button class="modal-btn save" onclick="saveCredit()">Save</button>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="profile-pic">
+                <img src="https://cdn.discordapp.com/attachments/1394015159554670632/1466877962384048389/image.png?ex=697e580f&is=697d068f&hm=143b5bc5790384aaf0c8ab9013bf9b1b9fee54b927e9da996ad57d95c111c811&" alt="Oasis Profile">
+            </div>
+            
+            <h1>Oasis</h1>
+            <p class="subtitle">VFX & Lua U Scripting</p>
+            <p class="tagline">>> we might be back? <<</p>
+            
+            <div class="social-links">
+                <a href="https://www.tiktok.com/@oasisalt" target="_blank" class="social-link">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                <a href="#" class="social-link">
+                    <i class="fab fa-discord"></i>
+                </a>
+                <a href="#" class="social-link">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="#" class="social-link">
+                    <i class="fas fa-envelope"></i>
+                </a>
             </div>
         </div>
-    </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Aizen Image Section - Before Work -->
+    <section class="aizen-section">
+        <img src="https://cdn.discordapp.com/attachments/1394015159554670632/1466877962384048389/image.png?ex=697e580f&is=697d068f&hm=143b5bc5790384aaf0c8ab9013bf9b1b9fee54b927e9da996ad57d95c111c811&" alt="Aizen" class="aizen-image">
+    </section>
+
+    <!-- Work/Projects Section -->
+    <section id="work" class="fade-in">
+        <h2 class="section-title">My Work</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
+                <h3>VFX Creation</h3>
+                <p>High-quality visual effects for Roblox including particles, lighting, and environmental effects. Specializing in anime-style combat and cinematic VFX.</p>
+                <div class="project-tags">
+                    <span class="tag">VFX</span>
+                    <span class="tag">Particles</span>
+                    <span class="tag">Effects</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-icon"><i class="fas fa-code"></i></div>
+                <h3>Lua U Scripting</h3>
+                <p>Advanced Lua U scripting for game mechanics, combat systems, and optimization. Building efficient and scalable code solutions.</p>
+                <div class="project-tags">
+                    <span class="tag">Lua U</span>
+                    <span class="tag">Scripting</span>
+                    <span class="tag">Systems</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info Section -->
+    <section id="info" class="fade-in">
+        <h2 class="section-title">Info & Skills</h2>
+        <div class="info-cards">
+            <div class="info-card">
+                <h3><i class="fas fa-wrench"></i> Technical Skills</h3>
+                <ul>
+                    <li>Advanced Lua U Scripting</li>
+                    <li>VFX & Particle Systems</li>
+                    <li>Roblox Studio Mastery</li>
+                    <li>Combat Systems Development</li>
+                    <li>Performance Optimization</li>
+                    <li>Game Mechanics Design</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-star"></i> Specializations</h3>
+                <ul>
+                    <li>Custom VFX Solutions</li>
+                    <li>Advanced Scripting Systems</li>
+                    <li>Combat Mechanics</li>
+                    <li>Environmental Effects</li>
+                    <li>Cinematic Tools</li>
+                    <li>System Architecture</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-address-card"></i> Contact Info</h3>
+                <ul>
+                    <li>Discord Server Available</li>
+                    <li>TikTok @oasisalt</li>
+                    <li>Commissions Open</li>
+                    <li>Response Time 24-48h</li>
+                    <li>Timezone GMT</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contributions Section -->
+    <section id="contributions" class="fade-in">
+        <h2 class="section-title">Contributions</h2>
+        <div class="contributions-grid">
+            <div class="contribution-card">
+                <div class="contribution-date">Jan 8, 2025</div>
+                <h4>Shikai Complete</h4>
+                <p>Completed major VFX overhaul for Shikai system with improved particle effects and optimization.</p>
+            </div>
+
+            <div class="contribution-card">
+                <div class="contribution-date">Jan 8-9, 2025</div>
+                <h4>Bankai Moves + Cutscene</h4>
+                <p>Implemented Bankai transformation system with cinematic cutscene integration and dynamic effects.</p>
+            </div>
+
+            <div class="contribution-card">
+                <div class="contribution-date">Jan 8, 2025</div>
+                <h4>All SFX Implementation</h4>
+                <p>Integrated comprehensive sound effects system with spatial audio and dynamic mixing.</p>
+            </div>
+
+            <div class="contribution-card">
+                <div class="contribution-date">Jan 10, 2025</div>
+                <h4>Full Polish Pass</h4>
+                <p>Final optimization and polish pass on all VFX and gameplay systems.</p>
+            </div>
+        </div>
+    </section>
+
+    <audio id="backgroundMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
 
     <script>
-        // Task Management
-        const tasks = {};
-        const checkboxes = document.querySelectorAll('.checkbox');
-        
         // Music Player
-        let audioPlayer = null;
+        const backgroundMusic = document.getElementById('backgroundMusic');
         const playBtn = document.getElementById('playBtn');
-        const pauseBtn = document.getElementById('pauseBtn');
-        const musicUpload = document.getElementById('musicUpload');
-        const musicTitle = document.getElementById('musicTitle');
         const volumeSlider = document.getElementById('volumeSlider');
-        const volumeValue = document.getElementById('volumeValue');
 
-        // Image Gallery
-        const imageUpload = document.getElementById('imageUpload');
-        const imageUploadBtn = document.getElementById('imageUploadBtn');
-        const imageGallery = document.getElementById('imageGallery');
-        let uploadedImages = [];
-
-        // Credit Editing
-        let currentEditingPerson = null;
-        const credits = {
-            oasis: { name: 'Oasis', role: 'VFX & Animations', image: 'https://cdn.discordapp.com/attachments/1382046395703234734/1458935841467662428/image.png' },
-            knobus: { name: 'Knobus', role: 'Main Scripting', image: 'https://cdn.discordapp.com/attachments/1382046395703234734/1458935814863196160/image.png' }
-        };
-
-        // FIXED: Connect the button to trigger file input
-        imageUploadBtn.addEventListener('click', function() {
-            imageUpload.click();
-        });
-
-        // Load saved data
-        function loadTasks() {
-            const saved = localStorage.getItem('raika_tasks');
-            if (saved) {
-                Object.assign(tasks, JSON.parse(saved));
-            }
-            
-            checkboxes.forEach(checkbox => {
-                const task = checkbox.closest('.task');
-                const taskId = task.dataset.task;
-                if (tasks[taskId]) {
-                    checkbox.checked = true;
-                    task.classList.add('completed');
-                }
-            });
-            
-            updateProgress();
-        }
-
-        function loadImages() {
-            const saved = localStorage.getItem('raika_images');
-            if (saved) {
-                uploadedImages = JSON.parse(saved);
-                renderImages();
-            }
-        }
-
-        function loadCredits() {
-            const saved = localStorage.getItem('raika_credits');
-            if (saved) {
-                Object.assign(credits, JSON.parse(saved));
-                renderCredits();
-            }
-        }
-
-        function saveTasks() {
-            localStorage.setItem('raika_tasks', JSON.stringify(tasks));
-        }
-
-        function saveImages() {
-            localStorage.setItem('raika_images', JSON.stringify(uploadedImages));
-        }
-
-        function saveCredits() {
-            localStorage.setItem('raika_credits', JSON.stringify(credits));
-        }
-
-        function updateProgress() {
-            const total = checkboxes.length;
-            const completed = Object.values(tasks).filter(v => v).length;
-            const percentage = Math.round((completed / total) * 100);
-            
-            const progressBar = document.getElementById('progress');
-            progressBar.style.width = percentage + '%';
-            progressBar.textContent = percentage + '%';
-        }
-
-        // Task checkboxes
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                const task = this.closest('.task');
-                const taskId = task.dataset.task;
-                
-                if (this.checked) {
-                    task.classList.add('completed');
-                    tasks[taskId] = true;
-                } else {
-                    task.classList.remove('completed');
-                    tasks[taskId] = false;
-                }
-                
-                saveTasks();
-                updateProgress();
+        // Try autoplay on page load
+        window.addEventListener('load', () => {
+            backgroundMusic.play().catch(e => {
+                console.log('Autoplay blocked, user interaction needed');
             });
         });
 
-        // Music Player Functions
-        musicUpload.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                if (audioPlayer) {
-                    audioPlayer.pause();
-                }
-                
-                const url = URL.createObjectURL(file);
-                audioPlayer = new Audio(url);
-                audioPlayer.volume = volumeSlider.value / 100;
-                
-                musicTitle.textContent = file.name;
-                playBtn.style.display = 'inline-block';
-                pauseBtn.style.display = 'none';
+        // Also try on first click anywhere
+        document.addEventListener('click', function initAudio() {
+            if (backgroundMusic.paused) {
+                backgroundMusic.play().catch(e => console.log('Audio play failed'));
             }
-        });
+            document.removeEventListener('click', initAudio);
+        }, { once: true });
 
-        playBtn.addEventListener('click', function() {
-            if (audioPlayer) {
-                audioPlayer.play();
-                playBtn.style.display = 'none';
-                pauseBtn.style.display = 'inline-block';
-            }
-        });
-
-        pauseBtn.addEventListener('click', function() {
-            if (audioPlayer) {
-                audioPlayer.pause();
-                playBtn.style.display = 'inline-block';
-                pauseBtn.style.display = 'none';
+        playBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const icon = playBtn.querySelector('i');
+            if (backgroundMusic.paused) {
+                backgroundMusic.play().then(() => {
+                    icon.classList.remove('fa-play');
+                    icon.classList.add('fa-pause');
+                }).catch(err => {
+                    console.error('Play failed:', err);
+                });
+            } else {
+                backgroundMusic.pause();
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play');
             }
         });
 
         volumeSlider.addEventListener('input', function() {
-            const volume = this.value;
-            volumeValue.textContent = volume + '%';
-            if (audioPlayer) {
-                audioPlayer.volume = volume / 100;
-            }
+            backgroundMusic.volume = this.value / 100;
         });
 
-        // Image Gallery Functions - FIXED
-        imageUpload.addEventListener('change', function(e) {
-            const files = Array.from(e.target.files);
-            console.log('Files selected:', files.length); // Debug log
-            
-            files.forEach(file => {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    console.log('File loaded:', file.name); // Debug log
-                    uploadedImages.push({
-                        id: Date.now() + Math.random(),
-                        data: event.target.result,
-                        name: file.name
-                    });
-                    saveImages();
-                    renderImages();
-                };
-                reader.readAsDataURL(file);
-            });
-            
-            // Reset input so same file can be selected again
-            e.target.value = '';
+        backgroundMusic.volume = 0.5;
+
+        // Update button icon based on audio state
+        backgroundMusic.addEventListener('play', () => {
+            const icon = playBtn.querySelector('i');
+            icon.classList.remove('fa-play');
+            icon.classList.add('fa-pause');
         });
 
-        function renderImages() {
-            console.log('Rendering images:', uploadedImages.length); // Debug log
-            imageGallery.innerHTML = '';
-            uploadedImages.forEach(image => {
-                const div = document.createElement('div');
-                div.className = 'image-item';
-                div.innerHTML = `
-                    <img src="${image.data}" alt="${image.name}">
-                    <button class="remove-image" onclick="removeImage(${image.id})">✕</button>
-                `;
-                imageGallery.appendChild(div);
-            });
-        }
-
-        function removeImage(id) {
-            uploadedImages = uploadedImages.filter(img => img.id !== id);
-            saveImages();
-            renderImages();
-        }
-
-        // Credit Editing Functions
-        function editCredit(person) {
-            currentEditingPerson = person;
-            const credit = credits[person];
-            
-            document.getElementById('editName').value = credit.name;
-            document.getElementById('editRole').value = credit.role;
-            document.getElementById('editModal').classList.add('active');
-        }
-
-        function closeModal() {
-            document.getElementById('editModal').classList.remove('active');
-            currentEditingPerson = null;
-            // Reset file input
-            document.getElementById('editImage').value = '';
-        }
-
-        function saveCredit() {
-            if (!currentEditingPerson) return;
-            
-            const name = document.getElementById('editName').value;
-            const role = document.getElementById('editRole').value;
-            const imageFile = document.getElementById('editImage').files[0];
-            
-            credits[currentEditingPerson].name = name;
-            credits[currentEditingPerson].role = role;
-            
-            if (imageFile) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    credits[currentEditingPerson].image = e.target.result;
-                    saveCredits();
-                    renderCredits();
-                    closeModal();
-                };
-                reader.readAsDataURL(imageFile);
-            } else {
-                saveCredits();
-                renderCredits();
-                closeModal();
-            }
-        }
-
-        function renderCredits() {
-            const container = document.getElementById('creditsContainer');
-            container.innerHTML = '';
-            
-            Object.keys(credits).forEach(key => {
-                const credit = credits[key];
-                const div = document.createElement('div');
-                div.className = 'credit-card';
-                div.dataset.person = key;
-                div.innerHTML = `
-                    <img src="${credit.image}" alt="${credit.name}" class="credit-avatar">
-                    <div class="credit-info">
-                        <div class="credit-name">${credit.name}</div>
-                        <div class="credit-role">${credit.role}</div>
-                    </div>
-                    <button class="edit-icon" onclick="editCredit('${key}')">✏️ Edit</button>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        // Close modal when clicking outside
-        document.getElementById('editModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
+        backgroundMusic.addEventListener('pause', () => {
+            const icon = playBtn.querySelector('i');
+            icon.classList.remove('fa-pause');
+            icon.classList.add('fa-play');
         });
 
-        // Initialize
-        loadTasks();
-        loadImages();
-        loadCredits();
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Fade-in on Scroll
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -80px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
     </script>
 </body>
 </html>
