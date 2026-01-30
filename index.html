@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oasis - VFX & Lua U Developer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-        
         * {
             margin: 0;
             padding: 0;
@@ -42,7 +45,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
+            background-image:
                 linear-gradient(rgba(147, 51, 234, 0.05) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(147, 51, 234, 0.05) 1px, transparent 1px);
             background-size: 40px 40px;
@@ -51,8 +54,13 @@
         }
 
         @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(40px, 40px); }
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(40px, 40px);
+            }
         }
 
         /* Glow Effects */
@@ -65,6 +73,9 @@
             opacity: 0.15;
             z-index: 0;
             pointer-events: none;
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
+            /* Force GPU acceleration */
         }
 
         .glow-orb-1 {
@@ -82,13 +93,27 @@
         }
 
         @keyframes float1 {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(-150px, 150px) scale(1.1); }
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(-150px, 150px) scale(1.1);
+            }
         }
 
         @keyframes float2 {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(150px, -150px) scale(1.1); }
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(150px, -150px) scale(1.1);
+            }
         }
 
         /* Floating Icons Background */
@@ -108,6 +133,7 @@
             font-size: 40px;
             color: rgba(147, 51, 234, 0.08);
             animation: floatIcon 20s ease-in-out infinite;
+            will-change: transform, opacity;
         }
 
         .floating-icon:nth-child(1) {
@@ -155,18 +181,23 @@
         }
 
         @keyframes floatIcon {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translate(0, 0) rotate(0deg);
                 opacity: 0.8;
             }
+
             25% {
                 transform: translate(30px, -30px) rotate(90deg);
                 opacity: 0.5;
             }
+
             50% {
                 transform: translate(-20px, 40px) rotate(180deg);
                 opacity: 1;
             }
+
             75% {
                 transform: translate(40px, 20px) rotate(270deg);
                 opacity: 0.6;
@@ -361,11 +392,12 @@
             margin: 0 auto 40px;
             border: 5px solid transparent;
             background: linear-gradient(var(--bg-dark), var(--bg-dark)) padding-box,
-                        linear-gradient(135deg, var(--purple), var(--red)) border-box;
+                linear-gradient(135deg, var(--purple), var(--red)) border-box;
             padding: 6px;
             animation: pulse 4s ease-in-out infinite;
             overflow: hidden;
             box-shadow: 0 20px 60px rgba(147, 51, 234, 0.5);
+            will-change: transform;
         }
 
         .profile-pic img {
@@ -376,8 +408,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.08);
+            }
         }
 
         .hero h1 {
@@ -437,7 +476,7 @@
             color: var(--white);
         }
 
-       
+
         /* Section Styles */
         section {
             position: relative;
@@ -654,6 +693,7 @@
                 opacity: 0;
                 transform: translateY(40px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -665,6 +705,7 @@
                 opacity: 0;
                 transform: scale(0.92);
             }
+
             to {
                 opacity: 1;
                 transform: scale(1);
@@ -694,8 +735,15 @@
         }
 
         @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-12px); }
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-12px);
+            }
         }
 
         /* Mobile Responsive */
@@ -748,12 +796,13 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Animated Background -->
     <div class="grid-bg"></div>
     <div class="glow-orb glow-orb-1"></div>
     <div class="glow-orb glow-orb-2"></div>
-    
+
     <!-- Floating Icons -->
     <div class="floating-icons">
         <i class="floating-icon fas fa-wand-magic-sparkles"></i>
@@ -794,27 +843,28 @@
     <section class="hero" id="home">
         <div class="hero-content">
             <div class="profile-pic">
-                <img src="https://cdn.discordapp.com/attachments/1394015159554670632/1466881707465511076/image.png?ex=697e5b8c&is=697d0a0c&hm=8ef1a77619111477c2841a946394b69cccba6e4fa905fef38ac8bb5434d757d1&" alt="Oasis Profile">
+                <img src="https://cdn.discordapp.com/attachments/1394015159554670632/1466881707465511076/image.png?ex=697e5b8c&is=697d0a0c&hm=8ef1a77619111477c2841a946394b69cccba6e4fa905fef38ac8bb5434d757d1&"
+                    alt="Oasis Profile" width="220" height="220" fetchpriority="high">
             </div>
-            
+
             <h1>Oasis</h1>
             <p class="subtitle">VFX & Lua U Scripting</p>
-            <p class="tagline">>> we might be back? <<</p>
-            
-            <div class="social-links">
-                <a href="https://www.tiktok.com/@oasisalt" target="_blank" class="social-link">
-                    <i class="fab fa-tiktok"></i>
-                </a>
-                <a href="https://discord.gg/S9enkFGZ" target="_blank" class="social-link">
-                    <i class="fab fa-discord"></i>
-                </a>
-                <a href="#" class="social-link">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="mailto:contact@oasis.dev" class="social-link">
-                    <i class="fas fa-envelope"></i>
-                </a>
-            </div>
+            <p class="tagline">>> we might be back? <<< /p>
+
+                    <div class="social-links">
+                        <a href="https://www.tiktok.com/@oasisalt" target="_blank" class="social-link">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://discord.gg/S9enkFGZ" target="_blank" class="social-link">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="mailto:contact@oasis.dev" class="social-link">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
         </div>
         <div class="scroll-indicator">
             <i class="fas fa-chevron-down"></i>
@@ -823,7 +873,8 @@
 
     <!-- Aizen Image Section - Before Work -->
     <section class="aizen-section">
-        <img src="https://cdn.discordapp.com/attachments/1394015159554670632/1466878066889588843/2Q.png?ex=697e5828&is=697d06a8&hm=432690fb054d86ff0d86d51161b9ffdc47e91f699054402b457185fc6bc883d0&" alt="Aizen" class="aizen-image">
+        <img src="https://cdn.discordapp.com/attachments/1394015159554670632/1466878066889588843/2Q.png?ex=697e5828&is=697d06a8&hm=432690fb054d86ff0d86d51161b9ffdc47e91f699054402b457185fc6bc883d0&"
+            alt="Aizen" class="aizen-image" loading="lazy">
     </section>
 
     <!-- Work/Projects Section -->
@@ -926,7 +977,7 @@
             document.removeEventListener('click', initAudio);
         }, { once: true });
 
-        playBtn.addEventListener('click', function(e) {
+        playBtn.addEventListener('click', function (e) {
             e.stopPropagation();
             const icon = playBtn.querySelector('i');
             if (backgroundMusic.paused) {
@@ -943,7 +994,7 @@
             }
         });
 
-        volumeSlider.addEventListener('input', function() {
+        volumeSlider.addEventListener('input', function () {
             backgroundMusic.volume = this.value / 100;
         });
 
@@ -992,6 +1043,7 @@
         });
     </script>
 </body>
+
 </html>
 
 
