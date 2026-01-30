@@ -69,26 +69,22 @@
             width: 800px;
             height: 800px;
             border-radius: 50%;
-            filter: blur(120px);
             opacity: 0.15;
             z-index: 0;
             pointer-events: none;
-            will-change: transform;
-            transform: translate3d(0, 0, 0);
-            /* Force GPU acceleration */
         }
 
         .glow-orb-1 {
             top: -300px;
             right: -300px;
-            background: var(--purple);
+            background: radial-gradient(circle, var(--purple) 0%, transparent 70%);
             animation: float1 25s ease-in-out infinite;
         }
 
         .glow-orb-2 {
             bottom: -300px;
             left: -300px;
-            background: var(--red);
+            background: radial-gradient(circle, var(--red) 0%, transparent 70%);
             animation: float2 30s ease-in-out infinite;
         }
 
@@ -133,7 +129,6 @@
             font-size: 40px;
             color: rgba(147, 51, 234, 0.08);
             animation: floatIcon 20s ease-in-out infinite;
-            will-change: transform, opacity;
         }
 
         .floating-icon:nth-child(1) {
@@ -397,7 +392,6 @@
             animation: pulse 4s ease-in-out infinite;
             overflow: hidden;
             box-shadow: 0 20px 60px rgba(147, 51, 234, 0.5);
-            will-change: transform;
         }
 
         .profile-pic img {
@@ -1045,5 +1039,3 @@
 </body>
 
 </html>
-
-
