@@ -675,6 +675,33 @@
             letter-spacing: -0.3px;
         }
 
+        .contribution-card h4 a {
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+        }
+
+        .contribution-card h4 a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--purple), var(--red));
+            transition: width 0.3s ease;
+        }
+
+        .contribution-card h4 a:hover {
+            color: var(--purple);
+        }
+
+        .contribution-card h4 a:hover::after {
+            width: 100%;
+        }
+
         .contribution-card p {
             color: var(--gray-light);
             line-height: 1.7;
@@ -855,7 +882,7 @@
                         <a href="#" class="social-link">
                             <i class="fab fa-github"></i>
                         </a>
-                        <a href="mailto:contact@oasis.dev" class="social-link">
+                        <a href="/cdn-cgi/l/email-protection#b2d1dddcc6d3d1c6f2ddd3c1dbc19cd6d7c4" class="social-link">
                             <i class="fas fa-envelope"></i>
                         </a>
                     </div>
@@ -940,36 +967,54 @@
         <div class="contributions-grid">
             <div class="contribution-card">
                 <div class="contribution-date">Jan 12, 2026</div>
-                <h4>Requiem </h4>
+                <h4><a href="https://discord.gg/rB2ZhGT3fF" target="_blank">Requiem</a></h4>
                 <p>Combat vfx, https://discord.gg/HKrqjBrh.</p>
+            </div>
+            <div class="contribution-card">
+                <div class="contribution-date">Jan 24, 2026</div>
+                <h4>Type Soul</h4>
             </div>
         </div>
     </section>
 
-    <audio id="backgroundMusic" loop>
+    <audio id="backgroundMusic" loop autoplay>
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
-    <script>
-        // Music Player
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Music Player - More aggressive autoplay
         const backgroundMusic = document.getElementById('backgroundMusic');
         const playBtn = document.getElementById('playBtn');
         const volumeSlider = document.getElementById('volumeSlider');
 
+        // Set volume first
+        backgroundMusic.volume = 0.5;
+
+        // Immediately try to play
+        backgroundMusic.play().catch(e => {
+            console.log('Initial autoplay blocked, waiting for user interaction');
+        });
+
         // Try autoplay on page load
         window.addEventListener('load', () => {
             backgroundMusic.play().catch(e => {
-                console.log('Autoplay blocked, user interaction needed');
+                console.log('Autoplay on load blocked');
             });
         });
 
-        // Also try on first click anywhere
-        document.addEventListener('click', function initAudio() {
+        // Try on any user interaction
+        const tryPlay = () => {
             if (backgroundMusic.paused) {
-                backgroundMusic.play().catch(e => console.log('Audio play failed'));
+                backgroundMusic.play().catch(e => console.log('Play attempt failed'));
             }
-            document.removeEventListener('click', initAudio);
-        }, { once: true });
+        };
+
+        // Multiple event listeners for better autoplay
+        document.addEventListener('click', tryPlay, { once: true });
+        document.addEventListener('scroll', tryPlay, { once: true });
+        document.addEventListener('keydown', tryPlay, { once: true });
+        document.addEventListener('touchstart', tryPlay, { once: true });
+        document.addEventListener('mousemove', tryPlay, { once: true });
 
         playBtn.addEventListener('click', function (e) {
             e.stopPropagation();
@@ -991,8 +1036,6 @@
         volumeSlider.addEventListener('input', function () {
             backgroundMusic.volume = this.value / 100;
         });
-
-        backgroundMusic.volume = 0.5;
 
         // Update button icon based on audio state
         backgroundMusic.addEventListener('play', () => {
@@ -1031,12 +1074,3 @@
                 }
             });
         }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(element => {
-            observer.observe(element);
-        });
-    </script>
-</body>
-
-</html>
-
