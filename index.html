@@ -470,6 +470,38 @@
             color: var(--white);
         }
 
+        /* Banner Section */
+        .banner-section {
+            position: relative;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            z-index: 1;
+        }
+
+        .banner-container {
+            width: 100%;
+            max-height: 400px;
+            overflow: hidden;
+            position: relative;
+            border-top: 2px solid rgba(147, 51, 234, 0.3);
+            border-bottom: 2px solid rgba(147, 51, 234, 0.3);
+        }
+
+        .banner-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            filter: brightness(0.85);
+            transition: filter 0.3s ease, transform 0.3s ease;
+        }
+
+        .banner-container:hover .banner-image {
+            filter: brightness(1);
+            transform: scale(1.02);
+        }
 
         /* Section Styles */
         section {
@@ -681,6 +713,17 @@
             font-size: 14px;
         }
 
+        .contribution-card a {
+            color: var(--purple);
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        .contribution-card a:hover {
+            color: var(--red);
+        }
+
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -767,8 +810,8 @@
                 font-size: 40px;
             }
 
-            .aizen-image {
-                max-width: 100%;
+            .banner-container {
+                max-height: 250px;
             }
 
             .projects-grid,
@@ -837,13 +880,13 @@
     <section class="hero" id="home">
         <div class="hero-content">
             <div class="profile-pic">
-                <img src="https://cdn.discordapp.com/attachments/1394015159554670632/1466881707465511076/image.png?ex=697e5b8c&is=697d0a0c&hm=8ef1a77619111477c2841a946394b69cccba6e4fa905fef38ac8bb5434d757d1&"
+                <img src="https://cdn.discordapp.com/attachments/1394015159554670632/1466881707465511076/image.png?ex=697fad0c&is=697e5b8c&hm=19d3184f09be3dfd51866e1c623a0824c429a4a74ec7a806e539920ed4cebaf2&"
                     alt="Oasis Profile" width="220" height="220" fetchpriority="high">
             </div>
 
             <h1>Oasis</h1>
             <p class="subtitle">VFX & Lua U Scripting</p>
-            <p class="tagline">>> we might be back? <<< /p>
+            <p class="tagline">>> we might be back? <<<< /p>
 
                     <div class="social-links">
                         <a href="https://www.tiktok.com/@oasisalt" target="_blank" class="social-link">
@@ -865,10 +908,12 @@
         </div>
     </section>
 
-    <!-- Aizen Image Section - Before Work -->
-    <section class="aizen-section">
-        <img src="https://cdn.discordapp.com/attachments/1394015159554670632/1466878066889588843/2Q.png?ex=697e5828&is=697d06a8&hm=432690fb054d86ff0d86d51161b9ffdc47e91f699054402b457185fc6bc883d0&"
-            alt="Aizen" class="aizen-image" loading="lazy">
+    <!-- Banner Section -->
+    <section class="banner-section">
+        <div class="banner-container">
+            <img src="https://cdn.discordapp.com/attachments/1161395614232354987/1467314167638921286/01b1af4d8fbffce96843dee71b0e91b5.png?ex=697fee4e&is=697e9cce&hm=c0941f9cf04bcea919c20e9894e4088f4dfb72072809e06d259289344822c455&"
+                alt="Banner" class="banner-image" loading="lazy">
+        </div>
     </section>
 
     <!-- Work/Projects Section -->
@@ -878,7 +923,7 @@
             <div class="project-card">
                 <div class="project-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
                 <h3>VFX Designer</h3>
-                <p>Mid-Level Vfx Artist For 11 Months Specializing in anime-style combat and /skill VFX. (Ps. Im still learning)</p>
+                <p>Mid-Level Vfx Artist For 11 Months Specializing in anime-style combat and skill VFX. (Ps. Im still learning)</p>
                 <div class="project-tags">
                     <span class="tag">VFX</span>
                 </div>
@@ -940,8 +985,14 @@
         <div class="contributions-grid">
             <div class="contribution-card">
                 <div class="contribution-date">Jan 12, 2026</div>
-                <h4>Requiem </h4>
-                <p>Combat vfx, https://discord.gg/HKrqjBrh.</p>
+                <h4>Requiem</h4>
+                <p>Combat vfx, <a href="https://discord.gg/HKrqjBrh" target="_blank">Join Discord</a>.</p>
+            </div>
+            
+            <div class="contribution-card">
+                <div class="contribution-date">TBA</div>
+                <h4>Type Soul</h4>
+                <p><a href="https://discord.gg/rB2ZhGT3fF" target="_blank">Join Discord</a></p>
             </div>
         </div>
     </section>
