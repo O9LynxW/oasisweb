@@ -282,6 +282,161 @@
             min-width: 200px;
         }
 
+        /* Visitor Counter */
+        .visitor-counter {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(17, 17, 17, 0.95);
+            backdrop-filter: blur(30px) saturate(180%);
+            padding: 20px 25px;
+            border-radius: 15px;
+            z-index: 1000;
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            box-shadow: 0 10px 30px rgba(147, 51, 234, 0.4);
+            transition: all 0.4s ease;
+            text-align: center;
+        }
+
+        .visitor-counter:hover {
+            box-shadow: 0 15px 40px rgba(147, 51, 234, 0.6);
+            border-color: var(--purple);
+            transform: translateY(-5px);
+        }
+
+        .visitor-counter-label {
+            font-size: 11px;
+            color: var(--gray);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .visitor-counter-number {
+            font-size: 32px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--white), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+            animation: counterGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes counterGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 10px rgba(147, 51, 234, 0.4));
+            }
+            50% {
+                filter: drop-shadow(0 0 20px rgba(147, 51, 234, 0.8));
+            }
+        }
+
+        /* Discord Widget */
+        .discord-widget {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(17, 17, 17, 0.95);
+            backdrop-filter: blur(30px) saturate(180%);
+            padding: 20px;
+            border-radius: 15px;
+            z-index: 1000;
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            box-shadow: 0 10px 30px rgba(147, 51, 234, 0.4);
+            transition: all 0.4s ease;
+            max-width: 320px;
+        }
+
+        .discord-widget:hover {
+            box-shadow: 0 15px 40px rgba(147, 51, 234, 0.6);
+            border-color: var(--purple);
+            transform: translateY(-5px);
+        }
+
+        .discord-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(147, 51, 234, 0.3);
+        }
+
+        .discord-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 3px solid var(--purple);
+            position: relative;
+        }
+
+        .discord-status {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 3px solid rgba(17, 17, 17, 0.95);
+        }
+
+        .discord-status.online {
+            background: #23a55a;
+            box-shadow: 0 0 10px #23a55a;
+        }
+
+        .discord-status.idle {
+            background: #f0b232;
+            box-shadow: 0 0 10px #f0b232;
+        }
+
+        .discord-status.dnd {
+            background: #f23f43;
+            box-shadow: 0 0 10px #f23f43;
+        }
+
+        .discord-status.offline {
+            background: #80848e;
+        }
+
+        .discord-info {
+            flex: 1;
+        }
+
+        .discord-username {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 3px;
+        }
+
+        .discord-discriminator {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .discord-activity {
+            font-size: 13px;
+            color: var(--gray-light);
+            margin-top: 10px;
+        }
+
+        .discord-activity-title {
+            font-weight: 700;
+            color: var(--purple);
+            margin-bottom: 5px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .discord-activity-content {
+            color: var(--white);
+            font-weight: 600;
+        }
+
         .music-player:hover {
             box-shadow: 0 15px 40px rgba(147, 51, 234, 0.6);
             border-color: var(--purple);
@@ -423,11 +578,12 @@
             font-size: 96px;
             font-weight: 900;
             margin-bottom: 25px;
-            background: linear-gradient(135deg, var(--white) 0%, var(--purple) 50%, var(--red) 100%);
+            background: linear-gradient(135deg, var(--white) 0%, var(--purple-light) 50%, var(--purple) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -4px;
             line-height: 1;
+            filter: drop-shadow(0 0 30px rgba(147, 51, 234, 0.5));
         }
 
         .hero .subtitle {
@@ -514,14 +670,13 @@
             border-top: 2px solid rgba(147, 51, 234, 0.3);
             border-bottom: 3px solid rgba(147, 51, 234, 0.5);
             box-shadow: 0 0 40px rgba(147, 51, 234, 0.3), 0 0 80px rgba(147, 51, 234, 0.1);
-            margin: 0 60px;
-            border-radius: 12px;
+            margin: 0;
         }
 
         .banner-image {
             width: 100%;
             height: 200px;
-            object-fit: contain;
+            object-fit: cover;
             object-position: center;
             display: block;
             filter: brightness(0.85);
@@ -987,7 +1142,7 @@
 
             .banner-container {
                 max-height: 150px;
-                margin: 0 30px;
+                margin: 0;
             }
             
             .banner-image {
@@ -1005,6 +1160,23 @@
                 right: 20px;
                 top: 80px;
                 padding: 12px 16px;
+            }
+
+            .visitor-counter {
+                bottom: 20px;
+                right: 20px;
+                padding: 15px 20px;
+            }
+
+            .visitor-counter-number {
+                font-size: 24px;
+            }
+
+            .discord-widget {
+                bottom: 20px;
+                left: 20px;
+                max-width: 280px;
+                padding: 15px;
             }
 
             section {
@@ -1244,8 +1416,8 @@
     <!-- Music Player -->
     <div class="music-player">
         <div class="track-info">
-            <div class="track-title">Randomly</div>
-            <div class="track-artist">LUCKI</div>
+            <div class="track-title">Fever</div>
+            <div class="track-artist">Buckshot</div>
         </div>
         <div class="music-controls">
             <button class="play-btn" id="playBtn"><i class="fas fa-play"></i></button>
@@ -1253,6 +1425,32 @@
                 <i class="fas fa-volume-up"></i>
                 <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="50">
             </div>
+        </div>
+    </div>
+
+    <!-- Visitor Counter -->
+    <div class="visitor-counter">
+        <div class="visitor-counter-label">
+            <i class="fas fa-eye"></i> Total Visitors
+        </div>
+        <div class="visitor-counter-number" id="visitorCount">0</div>
+    </div>
+
+    <!-- Discord Widget -->
+    <div class="discord-widget" id="discordWidget">
+        <div class="discord-header">
+            <div style="position: relative;">
+                <img class="discord-avatar" id="discordAvatar" src="https://cdn.discordapp.com/attachments/1394015159554670632/1466881707465511076/image.png?ex=697fad0c&is=697e5b8c&hm=19d3184f09be3dfd51866e1c623a0824c429a4a74ec7a806e539920ed4cebaf2&" alt="Discord Avatar">
+                <div class="discord-status offline" id="discordStatus"></div>
+            </div>
+            <div class="discord-info">
+                <div class="discord-username" id="discordUsername">Oasis</div>
+                <div class="discord-discriminator" id="discordTag">#0000</div>
+            </div>
+        </div>
+        <div class="discord-activity" id="discordActivity">
+            <div class="discord-activity-title"><i class="fas fa-circle"></i> Status</div>
+            <div class="discord-activity-content">Offline</div>
         </div>
     </div>
 
@@ -1433,6 +1631,126 @@
         const backgroundMusic = document.getElementById('backgroundMusic');
         const playBtn = document.getElementById('playBtn');
         const volumeSlider = document.getElementById('volumeSlider');
+
+        // Visitor Counter System
+        const VISITOR_KEY = 'oasis_visitor_count';
+        const VISITOR_ID_KEY = 'oasis_visitor_id';
+        
+        function initVisitorCounter() {
+            // Check if this visitor has been here before
+            let visitorId = localStorage.getItem(VISITOR_ID_KEY);
+            
+            if (!visitorId) {
+                // New visitor - generate unique ID and increment counter
+                visitorId = 'visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem(VISITOR_ID_KEY, visitorId);
+                
+                // Increment total visitor count
+                let count = parseInt(localStorage.getItem(VISITOR_KEY) || '0');
+                count++;
+                localStorage.setItem(VISITOR_KEY, count.toString());
+            }
+            
+            // Display current count with animation
+            let currentCount = parseInt(localStorage.getItem(VISITOR_KEY) || '0');
+            animateCounter(currentCount);
+        }
+
+        function animateCounter(targetCount) {
+            const counterElement = document.getElementById('visitorCount');
+            let currentCount = 0;
+            const duration = 2000; // 2 seconds
+            const increment = targetCount / (duration / 16); // 60fps
+
+            const timer = setInterval(() => {
+                currentCount += increment;
+                if (currentCount >= targetCount) {
+                    currentCount = targetCount;
+                    clearInterval(timer);
+                }
+                counterElement.textContent = Math.floor(currentCount).toLocaleString();
+            }, 16);
+        }
+
+        // Initialize visitor counter on page load
+        initVisitorCounter();
+
+        // Discord Presence System
+        // Note: To use real Discord presence, you'd need to use Lanyard API
+        // For now, this is a placeholder that you can connect to Lanyard
+        
+        const DISCORD_USER_ID = '1234567890'; // Replace with your Discord User ID
+        
+        async function updateDiscordPresence() {
+            try {
+                // Using Lanyard API - replace USER_ID with your actual Discord ID
+                // Get your ID by enabling Developer Mode in Discord, right-click your profile, Copy ID
+                const response = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_USER_ID}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    const presence = data.data;
+                    
+                    // Update avatar
+                    const avatarUrl = `https://cdn.discordapp.com/avatars/${presence.discord_user.id}/${presence.discord_user.avatar}.png?size=128`;
+                    document.getElementById('discordAvatar').src = avatarUrl;
+                    
+                    // Update username
+                    document.getElementById('discordUsername').textContent = presence.discord_user.username;
+                    document.getElementById('discordTag').textContent = `#${presence.discord_user.discriminator}`;
+                    
+                    // Update status
+                    const statusElement = document.getElementById('discordStatus');
+                    statusElement.className = `discord-status ${presence.discord_status}`;
+                    
+                    // Update activity
+                    const activityElement = document.getElementById('discordActivity');
+                    if (presence.activities && presence.activities.length > 0) {
+                        const activity = presence.activities[0];
+                        let activityText = '';
+                        
+                        if (activity.type === 0) { // Playing
+                            activityText = `Playing ${activity.name}`;
+                        } else if (activity.type === 1) { // Streaming
+                            activityText = `Streaming ${activity.name}`;
+                        } else if (activity.type === 2) { // Listening
+                            activityText = `Listening to ${activity.name}`;
+                        } else if (activity.type === 3) { // Watching
+                            activityText = `Watching ${activity.name}`;
+                        } else if (activity.type === 4) { // Custom
+                            activityText = activity.state || 'Custom Status';
+                        }
+                        
+                        if (activity.details) {
+                            activityText += `<br><small style="color: var(--gray);">${activity.details}</small>`;
+                        }
+                        
+                        activityElement.innerHTML = `
+                            <div class="discord-activity-title"><i class="fas fa-gamepad"></i> Activity</div>
+                            <div class="discord-activity-content">${activityText}</div>
+                        `;
+                    } else {
+                        const statusText = {
+                            'online': 'Online',
+                            'idle': 'Idle',
+                            'dnd': 'Do Not Disturb',
+                            'offline': 'Offline'
+                        };
+                        activityElement.innerHTML = `
+                            <div class="discord-activity-title"><i class="fas fa-circle"></i> Status</div>
+                            <div class="discord-activity-content">${statusText[presence.discord_status] || 'Offline'}</div>
+                        `;
+                    }
+                }
+            } catch (error) {
+                console.log('Discord presence unavailable - using fallback');
+                // Fallback - keep default offline state
+            }
+        }
+
+        // Update Discord presence every 30 seconds
+        updateDiscordPresence();
+        setInterval(updateDiscordPresence, 30000);
 
         // Try autoplay on page load
         window.addEventListener('load', () => {
