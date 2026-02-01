@@ -481,7 +481,7 @@
 
         .banner-container {
             width: 100%;
-            max-height: 280px;
+            max-height: 200px;
             overflow: hidden;
             position: relative;
             border-top: 2px solid rgba(147, 51, 234, 0.3);
@@ -490,12 +490,13 @@
 
         .banner-image {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: 200px;
+            object-fit: contain;
             object-position: center;
             display: block;
             filter: brightness(0.85);
             transition: filter 0.3s ease, transform 0.3s ease;
+            background: var(--bg-black);
         }
 
         .banner-container:hover .banner-image {
@@ -811,7 +812,11 @@
             }
 
             .banner-container {
-                max-height: 180px;
+                max-height: 150px;
+            }
+            
+            .banner-image {
+                height: 150px;
             }
 
             .projects-grid,
@@ -911,7 +916,7 @@
     <!-- Banner Section -->
     <section class="banner-section">
         <div class="banner-container">
-            <img src="https://cdn.discordapp.com/attachments/1161395614232354987/1467314167638921286/01b1af4d8fbffce96843dee71b0e91b5.png?ex=697fee4e&is=697e9cce&hm=c0941f9cf04bcea919c20e9894e4088f4dfb72072809e06d259289344822c455&"
+            <img src="https://cdn.discordapp.com/attachments/1161395614232354987/1467318799870071027/image.png?ex=697ff29f&is=697ea11f&hm=e53e98d2c3171a9c54048cd0d3cfbdd39ae3c8a098cd06f967d987f97033d5d2&"
                 alt="Banner" class="banner-image" loading="lazy">
         </div>
     </section>
