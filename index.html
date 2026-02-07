@@ -1196,6 +1196,17 @@
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
+            /* Fix video intro on mobile */
+            .intro-video {
+                max-width: 100%;
+                max-height: 80%;
+                border-radius: 0;
+            }
+
+            .video-intro-overlay {
+                overflow: hidden;
+            }
+
             nav {
                 padding: 20px 30px;
             }
@@ -1311,11 +1322,6 @@
 
             section {
                 padding: 80px 30px;
-            }
-
-            .intro-video {
-                max-width: 95%;
-                max-height: 70%;
             }
         }
 
@@ -1520,7 +1526,7 @@
     <!-- Video Intro Overlay -->
     <div class="video-intro-overlay" id="videoIntro">
         <div class="video-intro-container">
-            <video class="intro-video" id="introVideo" autoplay muted>
+            <video class="intro-video" id="introVideo" autoplay muted playsinline webkit-playsinline>
                 <source src="clip.mp4" type="video/mp4">
             </video>
         </div>
@@ -1571,7 +1577,7 @@
     <section class="hero" id="home">
         <div class="hero-content">
             <div class="profile-pic">
-                <img src="imagewfwefwf.png"
+                <img src="https://raw.githubusercontent.com/YOUR-USERNAME/YOUR-REPO/main/mypfp.png"
                     alt="Oasis Profile" width="220" height="220" fetchpriority="high">
             </div>
 
@@ -1581,7 +1587,7 @@
                 <div class="stat-card discord-stat">
                     <div class="discord-header-inline">
                         <div style="position: relative;">
-                            <img class="discord-avatar-inline" id="discordAvatar" src="imagewfwefwf.png" alt="Discord Avatar">
+                            <img class="discord-avatar-inline" id="discordAvatar" src="https://raw.githubusercontent.com/YOUR-USERNAME/YOUR-REPO/main/mypfp.png" alt="Discord Avatar">
                             <div class="discord-status-inline offline" id="discordStatus"></div>
                         </div>
                         <div class="discord-info-inline">
@@ -1775,13 +1781,26 @@
         const videoIntro = document.getElementById('videoIntro');
         const introVideo = document.getElementById('introVideo');
         
+        // Force video play on mobile
+        introVideo.play().catch(e => console.log('Video autoplay prevented:', e));
+        
         // Auto-hide intro after video ends
         introVideo.addEventListener('ended', () => {
             videoIntro.classList.add('hide');
             setTimeout(() => {
                 videoIntro.style.display = 'none';
-            }, 1000);
+            }, 1200); // Match animation duration
         });
+
+        // Fallback: hide video after 10 seconds if it doesn't end naturally
+        setTimeout(() => {
+            if (videoIntro.style.display !== 'none') {
+                videoIntro.classList.add('hide');
+                setTimeout(() => {
+                    videoIntro.style.display = 'none';
+                }, 1200);
+            }
+        }, 10000);
 
         // Music Player
         const backgroundMusic = document.getElementById('backgroundMusic');
@@ -1791,12 +1810,19 @@
         // Set initial volume
         backgroundMusic.volume = 0.5;
 
-        // Aggressively try to autoplay music immediately
+        // Mobile-friendly music autoplay
+        let musicStarted = false;
+        
         function tryPlayMusic() {
-            if (backgroundMusic.paused) {
-                backgroundMusic.play().catch(e => {
-                    console.log('Autoplay blocked, will retry on interaction');
-                });
+            if (backgroundMusic.paused && !musicStarted) {
+                backgroundMusic.play()
+                    .then(() => {
+                        musicStarted = true;
+                        console.log('Music started successfully');
+                    })
+                    .catch(e => {
+                        console.log('Autoplay blocked, will retry on interaction');
+                    });
             }
         }
 
@@ -1806,9 +1832,23 @@
         // Try when page fully loads
         window.addEventListener('load', tryPlayMusic);
 
-        // Try on first any user interaction
-        ['click', 'touchstart', 'keydown'].forEach(event => {
-            document.addEventListener(event, tryPlayMusic, { once: true });
+        // Try when video starts playing (mobile devices often allow audio after video interaction)
+        introVideo.addEventListener('play', tryPlayMusic);
+        
+        // Try when video ends
+        introVideo.addEventListener('ended', tryPlayMusic);
+
+        // Try on first any user interaction (critical for mobile)
+        ['click', 'touchstart', 'touchend', 'keydown', 'scroll'].forEach(event => {
+            document.addEventListener(event, function startMusicOnce() {
+                tryPlayMusic();
+                // Remove listener after first successful play
+                if (musicStarted) {
+                    ['click', 'touchstart', 'touchend', 'keydown', 'scroll'].forEach(evt => {
+                        document.removeEventListener(evt, startMusicOnce);
+                    });
+                }
+            }, { passive: true });
         });
 
         // Visitor Counter System
