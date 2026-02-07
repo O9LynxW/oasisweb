@@ -38,19 +38,27 @@
             line-height: 1.6;
         }
 
+        body.video-playing {
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+
         /* Video Intro Overlay */
         .video-intro-overlay {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             background: rgba(0, 0, 0, 0.95);
             z-index: 99999;
             display: flex;
             align-items: center;
             justify-content: center;
             animation: fadeIn 0.5s ease;
+            overflow: hidden;
         }
 
         .video-intro-overlay.hide {
@@ -1535,8 +1543,8 @@
             <video class="intro-video" id="introVideo" autoplay muted playsinline webkit-playsinline>
                 <source src="clip.mp4" type="video/mp4">
             </video>
-            <div style="position: absolute; bottom: 30px; width: 100%; text-align: center; color: rgba(255,255,255,0.5); font-size: 14px; z-index: 10;">
-                Tap anywhere to continue
+            <div style="position: absolute; bottom: 50px; width: 100%; text-align: center; color: rgba(255,255,255,0.8); font-size: 18px; z-index: 10; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; animation: pulse 2s infinite;">
+                TAP ANYWHERE TO SKIP
             </div>
         </div>
     </div>
@@ -1786,9 +1794,12 @@
     </audio>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Video Intro - Simplified and more reliable
+        // Video Intro - FORCE IT TO WORK
         const videoIntro = document.getElementById('videoIntro');
         const introVideo = document.getElementById('introVideo');
+        
+        // Lock body scrolling while video plays
+        document.body.classList.add('video-playing');
         
         let videoHidden = false;
         
@@ -1796,40 +1807,56 @@
             if (videoHidden) return;
             videoHidden = true;
             
-            console.log('Hiding video intro now');
+            console.log('HIDING VIDEO NOW');
+            
+            // Unlock body scrolling
+            document.body.classList.remove('video-playing');
+            
+            // Add hide class for animation
             videoIntro.classList.add('hide');
             
-            // Remove from DOM after animation completes
+            // FORCE remove after short delay
             setTimeout(() => {
-                videoIntro.remove();
-                console.log('Video intro removed from DOM');
-            }, 1300);
+                if (videoIntro && videoIntro.parentNode) {
+                    videoIntro.parentNode.removeChild(videoIntro);
+                    console.log('VIDEO REMOVED FROM DOM');
+                }
+            }, 900);
         }
         
         // Try to play video
         setTimeout(() => {
             introVideo.play().catch(e => {
-                console.log('Video autoplay failed:', e);
-                // If video can't play, hide it immediately
-                setTimeout(hideVideoIntro, 1000);
+                console.log('Video cant play:', e);
+                setTimeout(hideVideoIntro, 500);
             });
         }, 100);
         
         // Hide when video ends
-        introVideo.addEventListener('ended', () => {
-            console.log('Video ended');
+        introVideo.addEventListener('ended', hideVideoIntro);
+        
+        // Hide on ANY click/touch on the overlay
+        videoIntro.addEventListener('click', (e) => {
+            console.log('VIDEO CLICKED');
             hideVideoIntro();
         });
         
-        // Hide on click/touch
-        videoIntro.addEventListener('click', hideVideoIntro);
-        videoIntro.addEventListener('touchstart', hideVideoIntro);
-        
-        // Fallback: FORCE hide after 7 seconds no matter what
-        setTimeout(() => {
-            console.log('Fallback timer: forcing hide');
+        videoIntro.addEventListener('touchstart', (e) => {
+            console.log('VIDEO TOUCHED');
             hideVideoIntro();
-        }, 7000);
+        });
+        
+        // NUCLEAR OPTION: Force hide after 5 seconds NO MATTER WHAT
+        const forceHideTimer = setTimeout(() => {
+            console.log('FORCE HIDING VIDEO - 5 SECOND TIMEOUT');
+            hideVideoIntro();
+        }, 5000);
+        
+        // Also try hiding on any keypress
+        document.addEventListener('keydown', (e) => {
+            console.log('KEY PRESSED');
+            hideVideoIntro();
+        }, { once: true });
 
         // Music Player
         const backgroundMusic = document.getElementById('backgroundMusic');
