@@ -38,102 +38,44 @@
             line-height: 1.6;
         }
 
-        body.video-playing {
-            overflow: hidden;
-            position: fixed;
-            width: 100%;
-            height: 100%;
-        }
-
-        /* Video Intro Overlay */
-        .video-intro-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 99999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.5s ease;
-            overflow: hidden;
-        }
-
-        .video-intro-overlay.hide {
-            animation: washOut 0.8s ease-out forwards;
-            pointer-events: none;
-        }
-
-        .video-intro-overlay.hide .intro-video {
-            animation: videoZoomIn 0.8s ease-out forwards;
-        }
-
-        @keyframes videoZoomIn {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-                filter: blur(0px);
-            }
-            100% {
-                transform: scale(3);
-                opacity: 0;
-                filter: blur(20px);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes washOut {
-            0% {
-                opacity: 1;
-                transform: scale(1);
-                filter: blur(0px);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(1.3);
-                filter: blur(10px);
-            }
-        }
-
-        .video-intro-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .intro-video {
-            max-width: 90%;
-            max-height: 90%;
-            opacity: 0.85;
-            border-radius: 20px;
-            box-shadow: 0 0 100px rgba(147, 51, 234, 0.8),
-                        0 0 200px rgba(147, 51, 234, 0.4);
-            animation: videoGlow 2s ease-in-out infinite;
-        }
-
-        @keyframes videoGlow {
-            0%, 100% {
-                box-shadow: 0 0 100px rgba(147, 51, 234, 0.8),
                             0 0 200px rgba(147, 51, 234, 0.4);
             }
             50% {
                 box-shadow: 0 0 150px rgba(147, 51, 234, 1),
                             0 0 300px rgba(147, 51, 234, 0.6);
             }
+        }
+
+        /* Video Intro Overlay - SIMPLE AND CLEAN */
+        .video-intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 1.5s ease-out;
+        }
+
+        .video-intro-overlay.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .video-intro-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .intro-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         /* Animated Grid Background */
@@ -1538,14 +1480,11 @@
 
 <body>
     <!-- Video Intro Overlay -->
-    <div class="video-intro-overlay" id="videoIntro" style="cursor: pointer;">
-        <div class="video-intro-container" style="width: 100%; height: 100%;">
-            <video class="intro-video" id="introVideo" autoplay muted playsinline webkit-playsinline style="pointer-events: none;">
+    <div class="video-intro-overlay" id="videoIntro">
+        <div class="video-intro-container">
+            <video class="intro-video" id="introVideo" autoplay muted playsinline webkit-playsinline>
                 <source src="clip.mp4" type="video/mp4">
             </video>
-            <div style="position: absolute; bottom: 50px; left: 0; right: 0; width: 100%; text-align: center; color: rgba(255,255,255,0.9); font-size: 20px; z-index: 10; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; animation: pulse 2s infinite; pointer-events: none;">
-                TAP ANYWHERE TO SKIP
-            </div>
         </div>
     </div>
 
@@ -1794,69 +1733,39 @@
     </audio>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Video Intro - FORCE IT TO WORK
+        // Video Intro - SIMPLE DISCORD-STYLE FADE
         const videoIntro = document.getElementById('videoIntro');
         const introVideo = document.getElementById('introVideo');
-        
-        // Lock body scrolling while video plays
-        document.body.classList.add('video-playing');
-        
-        let videoHidden = false;
-        
-        function hideVideoIntro() {
-            if (videoHidden) return;
-            videoHidden = true;
+
+        // When video ends naturally, fade it out
+        introVideo.addEventListener('ended', function() {
+            console.log('Video ended - fading out');
+            fadeOutVideo();
+        });
+
+        // Click anywhere to skip
+        videoIntro.addEventListener('click', function() {
+            console.log('Clicked - skipping video');
+            fadeOutVideo();
+        });
+
+        // Fallback: auto-hide after 15 seconds
+        setTimeout(function() {
+            console.log('Timeout reached - auto-hiding video');
+            fadeOutVideo();
+        }, 15000);
+
+        function fadeOutVideo() {
+            if (videoIntro.classList.contains('fade-out')) return;
             
-            console.log('HIDING VIDEO NOW');
+            videoIntro.classList.add('fade-out');
             
-            // Unlock body scrolling
-            document.body.classList.remove('video-playing');
-            
-            // Add hide class for animation
-            videoIntro.classList.add('hide');
-            
-            // FORCE remove after short delay
-            setTimeout(() => {
-                if (videoIntro && videoIntro.parentNode) {
-                    videoIntro.parentNode.removeChild(videoIntro);
-                    console.log('VIDEO REMOVED FROM DOM');
-                }
-            }, 900);
+            // Remove from DOM after fade completes
+            setTimeout(function() {
+                videoIntro.remove();
+                console.log('Video removed');
+            }, 1500);
         }
-        
-        // Try to play video
-        setTimeout(() => {
-            introVideo.play().catch(e => {
-                console.log('Video cant play:', e);
-                setTimeout(hideVideoIntro, 500);
-            });
-        }, 100);
-        
-        // Hide when video ends
-        introVideo.addEventListener('ended', hideVideoIntro);
-        
-        // Hide on ANY click/touch on the overlay
-        videoIntro.addEventListener('click', (e) => {
-            console.log('VIDEO CLICKED');
-            hideVideoIntro();
-        });
-        
-        videoIntro.addEventListener('touchstart', (e) => {
-            console.log('VIDEO TOUCHED');
-            hideVideoIntro();
-        });
-        
-        // NUCLEAR OPTION: Force hide after 5 seconds NO MATTER WHAT
-        const forceHideTimer = setTimeout(() => {
-            console.log('FORCE HIDING VIDEO - 5 SECOND TIMEOUT');
-            hideVideoIntro();
-        }, 5000);
-        
-        // Also try hiding on any keypress
-        document.addEventListener('keydown', (e) => {
-            console.log('KEY PRESSED');
-            hideVideoIntro();
-        }, { once: true });
 
         // Music Player
         const backgroundMusic = document.getElementById('backgroundMusic');
