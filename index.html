@@ -113,29 +113,6 @@
             }
         }
 
-        .skip-intro {
-            position: absolute;
-            bottom: 50px;
-            right: 50px;
-            background: rgba(147, 51, 234, 0.3);
-            border: 2px solid var(--purple);
-            color: var(--white);
-            padding: 12px 25px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .skip-intro:hover {
-            background: var(--purple);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(147, 51, 234, 0.6);
-        }
-
         /* Animated Grid Background */
         .grid-bg {
             position: fixed;
@@ -1331,13 +1308,6 @@
                 max-width: 95%;
                 max-height: 70%;
             }
-
-            .skip-intro {
-                bottom: 30px;
-                right: 30px;
-                padding: 10px 20px;
-                font-size: 12px;
-            }
         }
 
         /* Admin Panel Styles */
@@ -1544,9 +1514,6 @@
             <video class="intro-video" id="introVideo" autoplay muted>
                 <source src="clip.mp4" type="video/mp4">
             </video>
-            <button class="skip-intro" onclick="skipIntro()">
-                <i class="fas fa-forward"></i> Skip Intro
-            </button>
         </div>
     </div>
 
@@ -1789,25 +1756,22 @@
         </div>
     </div>
 
+    <!-- Background Music Audio Element -->
     <audio id="backgroundMusic" loop>
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // Video Intro
+        // Video Intro - Auto-hide when video ends (no skip button)
         const videoIntro = document.getElementById('videoIntro');
         const introVideo = document.getElementById('introVideo');
         
-        function skipIntro() {
+        // Auto-hide intro after video ends
+        introVideo.addEventListener('ended', () => {
             videoIntro.classList.add('hide');
             setTimeout(() => {
                 videoIntro.style.display = 'none';
             }, 1000);
-        }
-
-        // Auto-hide intro after video ends
-        introVideo.addEventListener('ended', () => {
-            skipIntro();
         });
 
         // Music Player
@@ -1815,28 +1779,26 @@
         const playBtn = document.getElementById('playBtn');
         const volumeSlider = document.getElementById('volumeSlider');
 
-        // Visitor Counter System - IMPROVED VERSION
+        // Set initial volume
+        backgroundMusic.volume = 0.5;
+
+        // Visitor Counter System
         const VISITOR_KEY = 'oasis_total_visits';
         const LAST_VISIT_KEY = 'oasis_last_visit';
         
         function initVisitorCounter() {
-            // Get current timestamp
             const now = Date.now();
             const lastVisit = localStorage.getItem(LAST_VISIT_KEY);
-            
-            // Check if this is a new visit (more than 30 minutes since last visit)
             const thirtyMinutes = 30 * 60 * 1000;
             const isNewVisit = !lastVisit || (now - parseInt(lastVisit)) > thirtyMinutes;
             
             if (isNewVisit) {
-                // Increment visitor count
                 let count = parseInt(localStorage.getItem(VISITOR_KEY) || '0');
                 count++;
                 localStorage.setItem(VISITOR_KEY, count.toString());
                 localStorage.setItem(LAST_VISIT_KEY, now.toString());
             }
             
-            // Display current count with animation
             let currentCount = parseInt(localStorage.getItem(VISITOR_KEY) || '0');
             animateCounter(currentCount);
         }
@@ -1844,8 +1806,8 @@
         function animateCounter(targetCount) {
             const counterElement = document.getElementById('visitorCount');
             let currentCount = 0;
-            const duration = 2000; // 2 seconds
-            const increment = targetCount / (duration / 16); // 60fps
+            const duration = 2000;
+            const increment = targetCount / (duration / 16);
 
             const timer = setInterval(() => {
                 currentCount += increment;
@@ -1857,11 +1819,10 @@
             }, 16);
         }
 
-        // Initialize visitor counter on page load
         initVisitorCounter();
 
         // Discord Presence System
-        const DISCORD_USER_ID = '890630436840173579'; // Replace with your Discord User ID
+        const DISCORD_USER_ID = '890630436840173579';
         
         async function updateDiscordPresence() {
             try {
@@ -1870,15 +1831,10 @@
                 
                 if (data.success) {
                     const presence = data.data;
-                    
-                    // Update avatar
                     const avatarUrl = `https://cdn.discordapp.com/avatars/${presence.discord_user.id}/${presence.discord_user.avatar}.png?size=128`;
                     document.getElementById('discordAvatar').src = avatarUrl;
-                    
-                    // Update username
                     document.getElementById('discordUsername').textContent = presence.discord_user.username;
                     
-                    // Update status
                     const statusElement = document.getElementById('discordStatus');
                     const statusTextElement = document.getElementById('discordStatusText');
                     statusElement.className = `discord-status-inline ${presence.discord_status}`;
@@ -1897,25 +1853,10 @@
             }
         }
 
-        // Update Discord presence every 30 seconds
         updateDiscordPresence();
         setInterval(updateDiscordPresence, 30000);
 
-        // Try autoplay on page load
-        window.addEventListener('load', () => {
-            backgroundMusic.play().catch(e => {
-                console.log('Autoplay blocked, user interaction needed');
-            });
-        });
-
-        // Also try on first click anywhere
-        document.addEventListener('click', function initAudio() {
-            if (backgroundMusic.paused) {
-                backgroundMusic.play().catch(e => console.log('Audio play failed'));
-            }
-            document.removeEventListener('click', initAudio);
-        }, { once: true });
-
+        // Music Player Controls
         playBtn.addEventListener('click', function (e) {
             e.stopPropagation();
             const icon = playBtn.querySelector('i');
@@ -1937,8 +1878,6 @@
             backgroundMusic.volume = this.value / 100;
         });
 
-        backgroundMusic.volume = 0.5;
-
         // Update button icon based on audio state
         backgroundMusic.addEventListener('play', () => {
             const icon = playBtn.querySelector('i');
@@ -1951,6 +1890,21 @@
             icon.classList.remove('fa-pause');
             icon.classList.add('fa-play');
         });
+
+        // Try to autoplay music on page load
+        window.addEventListener('load', () => {
+            backgroundMusic.play().catch(e => {
+                console.log('Autoplay blocked, user interaction needed');
+            });
+        });
+
+        // Try on first user interaction
+        document.addEventListener('click', function initAudio() {
+            if (backgroundMusic.paused) {
+                backgroundMusic.play().catch(e => console.log('Audio play failed'));
+            }
+            document.removeEventListener('click', initAudio);
+        }, { once: true });
 
         // Smooth Scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1986,12 +1940,10 @@
         const ADMIN_FILES_KEY = 'oasis_admin_files';
         const ADMIN_SESSION_KEY = 'oasis_admin_session';
 
-        // Initialize admin password if not set (default: "oasis123")
         if (!localStorage.getItem(ADMIN_PASSWORD_KEY)) {
             localStorage.setItem(ADMIN_PASSWORD_KEY, btoa('oasis123'));
         }
 
-        // Check if already logged in
         function checkAdminSession() {
             const session = sessionStorage.getItem(ADMIN_SESSION_KEY);
             if (session === 'active') {
@@ -2001,18 +1953,15 @@
             }
         }
 
-        // Open Admin Panel
         function openAdminPanel() {
             document.getElementById('adminOverlay').classList.add('active');
             checkAdminSession();
         }
 
-        // Close Admin Panel
         function closeAdminPanel() {
             document.getElementById('adminOverlay').classList.remove('active');
         }
 
-        // Admin Login
         function adminLogin(event) {
             event.preventDefault();
             const password = document.getElementById('adminPassword').value;
@@ -2031,7 +1980,6 @@
             }
         }
 
-        // Admin Logout
         function adminLogout() {
             sessionStorage.removeItem(ADMIN_SESSION_KEY);
             document.getElementById('loginSection').style.display = 'block';
@@ -2039,7 +1987,6 @@
             document.getElementById('adminPassword').value = '';
         }
 
-        // Change Password
         function changePassword() {
             const newPassword = prompt('Enter new admin password:');
             if (newPassword && newPassword.length >= 6) {
@@ -2050,7 +1997,6 @@
             }
         }
 
-        // Handle File Upload
         function handleFileUpload(event) {
             const files = event.target.files;
             const storedFiles = JSON.parse(localStorage.getItem(ADMIN_FILES_KEY) || '[]');
@@ -2076,7 +2022,6 @@
             event.target.value = '';
         }
 
-        // Load Files
         function loadFiles() {
             const storedFiles = JSON.parse(localStorage.getItem(ADMIN_FILES_KEY) || '[]');
             const fileList = document.getElementById('fileList');
@@ -2113,7 +2058,6 @@
             });
         }
 
-        // Download File
         function downloadFile(fileId) {
             const storedFiles = JSON.parse(localStorage.getItem(ADMIN_FILES_KEY) || '[]');
             const file = storedFiles.find(f => f.id == fileId);
@@ -2125,7 +2069,6 @@
             }
         }
 
-        // Delete File
         function deleteFile(fileId) {
             if (confirm('Are you sure you want to delete this file?')) {
                 let storedFiles = JSON.parse(localStorage.getItem(ADMIN_FILES_KEY) || '[]');
@@ -2135,7 +2078,6 @@
             }
         }
 
-        // Format File Size
         function formatFileSize(bytes) {
             if (bytes === 0) return '0 Bytes';
             const k = 1024;
@@ -2144,7 +2086,6 @@
             return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
         }
 
-        // Close admin panel when clicking outside
         document.getElementById('adminOverlay').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeAdminPanel();
@@ -2188,5 +2129,3 @@
 </body>
 
 </html>
-
-
