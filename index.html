@@ -1478,11 +1478,15 @@
 
 <body>
     <!-- Video Intro Overlay -->
-    <div class="video-intro-overlay" id="videoIntro">
+    <div class="video-intro-overlay" id="videoIntro" style="border: 5px solid red;">
         <div class="video-intro-container">
-            <video class="intro-video" id="introVideo" autoplay muted playsinline webkit-playsinline>
+            <video class="intro-video" id="introVideo" autoplay muted playsinline webkit-playsinline controls>
                 <source src="clip.mp4" type="video/mp4">
+                Your browser does not support the video tag.
             </video>
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 24px; z-index: 10;">
+                VIDEO SHOULD BE HERE - CLICK TO SKIP
+            </div>
         </div>
     </div>
 
@@ -1750,11 +1754,11 @@
             fadeOutVideo();
         });
 
-        // Fallback: auto-hide after 15 seconds
+        // Fallback: auto-hide after 3 seconds FOR TESTING
         setTimeout(function() {
             console.log('Timeout reached - auto-hiding video');
             fadeOutVideo();
-        }, 15000);
+        }, 3000);
 
         function fadeOutVideo() {
             if (videoIntro.classList.contains('fade-out')) return;
