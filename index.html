@@ -38,42 +38,88 @@
             line-height: 1.6;
         }
 
-        body.no-scroll {
-            overflow: hidden;
-            height: 100vh;
-        }
-
-        /* Video Intro Overlay - SIMPLE AND CLEAN */
+        /* Video Intro Overlay */
         .video-intro-overlay {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: #000;
-            z-index: 999999;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 99999;
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 1;
-            transition: opacity 1.5s ease-out;
-            overflow: hidden;
+            animation: fadeIn 0.5s ease;
         }
 
-        .video-intro-overlay.fade-out {
-            opacity: 0;
+        .video-intro-overlay.hide {
+            animation: washOut 1.2s ease forwards;
             pointer-events: none;
         }
 
+        .video-intro-overlay.hide .intro-video {
+            animation: videoZoomIn 1.2s ease forwards;
+        }
+
+        @keyframes videoZoomIn {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(2);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes washOut {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.5);
+            }
+        }
+
         .video-intro-container {
+            position: relative;
             width: 100%;
             height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
 
         .intro-video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            max-width: 90%;
+            max-height: 90%;
+            opacity: 0.85;
+            border-radius: 20px;
+            box-shadow: 0 0 100px rgba(147, 51, 234, 0.8),
+                        0 0 200px rgba(147, 51, 234, 0.4);
+            animation: videoGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes videoGlow {
+            0%, 100% {
+                box-shadow: 0 0 100px rgba(147, 51, 234, 0.8),
+                            0 0 200px rgba(147, 51, 234, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 150px rgba(147, 51, 234, 1),
+                            0 0 300px rgba(147, 51, 234, 0.6);
+            }
         }
 
         /* Animated Grid Background */
@@ -1478,15 +1524,11 @@
 
 <body>
     <!-- Video Intro Overlay -->
-    <div class="video-intro-overlay" id="videoIntro" style="border: 5px solid red;">
+    <div class="video-intro-overlay" id="videoIntro">
         <div class="video-intro-container">
-            <video class="intro-video" id="introVideo" autoplay muted playsinline webkit-playsinline controls>
+            <video class="intro-video" id="introVideo" autoplay muted playsinline webkit-playsinline>
                 <source src="clip.mp4" type="video/mp4">
-                Your browser does not support the video tag.
             </video>
-            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 24px; z-index: 10;">
-                VIDEO SHOULD BE HERE - CLICK TO SKIP
-            </div>
         </div>
     </div>
 
@@ -1735,45 +1777,30 @@
     </audio>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Video Intro - SIMPLE DISCORD-STYLE FADE
+        // Video Intro - Auto-hide when video ends (no skip button)
         const videoIntro = document.getElementById('videoIntro');
         const introVideo = document.getElementById('introVideo');
-
-        // Lock body scroll while video is playing
-        document.body.classList.add('no-scroll');
-
-        // When video ends naturally, fade it out
-        introVideo.addEventListener('ended', function() {
-            console.log('Video ended - fading out');
-            fadeOutVideo();
+        
+        // Force video play on mobile
+        introVideo.play().catch(e => console.log('Video autoplay prevented:', e));
+        
+        // Auto-hide intro after video ends
+        introVideo.addEventListener('ended', () => {
+            videoIntro.classList.add('hide');
+            setTimeout(() => {
+                videoIntro.style.display = 'none';
+            }, 1200); // Match animation duration
         });
 
-        // Click anywhere to skip
-        videoIntro.addEventListener('click', function() {
-            console.log('Clicked - skipping video');
-            fadeOutVideo();
-        });
-
-        // Fallback: auto-hide after 3 seconds FOR TESTING
-        setTimeout(function() {
-            console.log('Timeout reached - auto-hiding video');
-            fadeOutVideo();
-        }, 3000);
-
-        function fadeOutVideo() {
-            if (videoIntro.classList.contains('fade-out')) return;
-            
-            // Unlock scroll
-            document.body.classList.remove('no-scroll');
-            
-            videoIntro.classList.add('fade-out');
-            
-            // Remove from DOM after fade completes
-            setTimeout(function() {
-                videoIntro.remove();
-                console.log('Video removed');
-            }, 1500);
-        }
+        // Fallback: hide video after 10 seconds if it doesn't end naturally
+        setTimeout(() => {
+            if (videoIntro.style.display !== 'none') {
+                videoIntro.classList.add('hide');
+                setTimeout(() => {
+                    videoIntro.style.display = 'none';
+                }, 1200);
+            }
+        }, 10000);
 
         // Music Player
         const backgroundMusic = document.getElementById('backgroundMusic');
