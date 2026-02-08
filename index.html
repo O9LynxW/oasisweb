@@ -20,6 +20,23 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -10px;
+            left: -10px;
+            width: calc(100% + 20px);
+            height: calc(100% + 20px);
+            background-image: url('/mnt/user-data/uploads/1770575193710_image.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: blur(12px);
+            z-index: -1;
         }
 
         .container {
