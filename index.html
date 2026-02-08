@@ -283,6 +283,76 @@
             border: 1px solid #555;
             padding: 15px;
             margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modifier-title {
+            font-size: 13px;
+            color: #fff;
+        }
+
+        .modifier-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modifier-label {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .time-input {
+            background-color: #1a1a1a;
+            border: 1px solid #555;
+            color: #fff;
+            padding: 5px 10px;
+            width: 80px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        .time-input:focus {
+            outline: none;
+            border-color: #888;
+        }
+
+        /* Toggle Switch Styles */
+        .toggle-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .toggle-switch {
+            width: 50px;
+            height: 26px;
+            background-color: #555;
+            border-radius: 13px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .toggle-switch.active {
+            background-color: #4CAF50;
+        }
+
+        .toggle-slider {
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            transition: left 0.3s;
+        }
+
+        .toggle-switch.active .toggle-slider {
+            left: 27px;
         }
 
         /* INFO TAB */
@@ -589,23 +659,164 @@
                     <div class="settings-sidebar">
                         <div class="settings-info">
                             <strong>Currently Selected</strong><br>
-                            Gamemode:<br>
-                            Map:<br>
-                            Players:<br>
-                            Time Limit:<br>
+                            Gamemode: Cascade<br>
+                            Map: None<br>
+                            Players: 1-20<br>
+                            Time Limit: 10 minutes<br>
                             Modifiers:
                         </div>
                     </div>
                     <div class="settings-main">
                         <div class="settings-section">
-                            <div class="settings-header">Modifiers</div>
-                            <div class="modifier-box"></div>
-                            <div class="modifier-box"></div>
-                            <div class="modifier-box"></div>
-                            <div class="modifier-box"></div>
-                            <div class="modifier-box"></div>
-                            <div class="modifier-box"></div>
-                            <div class="modifier-box"></div>
+                            <div class="settings-header">Game Settings</div>
+                            
+                            <div class="modifier-box">
+                                <div class="modifier-title">Time Limit</div>
+                                <div class="modifier-control">
+                                    <input type="number" class="time-input" id="timeLimit" value="10" min="1" max="60" onchange="updateTimeLimit()">
+                                    <span class="modifier-label">minutes</span>
+                                </div>
+                            </div>
+
+                            <div class="modifier-box">
+                                <div class="modifier-title">Max Players</div>
+                                <div class="modifier-control">
+                                    <input type="number" class="time-input" id="maxPlayers" value="20" min="2" max="50">
+                                    <span class="modifier-label">players</span>
+                                </div>
+                            </div>
+
+                            <div class="modifier-box">
+                                <div class="modifier-title">Respawn Time</div>
+                                <div class="modifier-control">
+                                    <input type="number" class="time-input" id="respawnTime" value="5" min="0" max="30">
+                                    <span class="modifier-label">seconds</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <div class="settings-header">Mode Modifiers</div>
+                            
+                            <div class="modifier-box toggle-box">
+                                <div class="modifier-title">True Mode</div>
+                                <div class="toggle-switch" onclick="toggleModifier(this)">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                            </div>
+
+                            <div class="modifier-box toggle-box">
+                                <div class="modifier-title">Friendly Fire</div>
+                                <div class="toggle-switch" onclick="toggleModifier(this)">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                            </div>
+
+                            <div class="modifier-box toggle-box">
+                                <div class="modifier-title">Auto Balance Teams</div>
+                                <div class="toggle-switch active" onclick="toggleModifier(this)">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                            </div>
+
+                            <div class="modifier-box toggle-box">
+                                <div class="modifier-title">Allow Spectators</div>
+                                <div class="toggle-switch active" onclick="toggleModifier(this)">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <div class="settings-header">Gameplay Modifiers</div>
+                            
+                            <div class="modifier-box toggle-box">
+                                <div class="modifier-title">Infinite Stamina</div>
+                                <div class="toggle-switch" onclick="toggleModifier(this)">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                            </div>
+
+                            <div class="modifier-box toggle-box">
+                                <div class="modifier-title">No Fall Damage</div>
+                                <div class="toggle-switch" onclick="toggleModifier(this)">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                            </div>
+
+                            <div class="modifier-box toggle-box">
+                                <div class="modifier-title">Low Gravity</div>
+                                <div class="toggle-switch" onclick="toggleModifier(this)">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                            </div>
+
+                            <div class="modifier-box toggle-box">
+                                <div class="modifier-title">Fast Cooldowns</div>
+                                <div class="toggle-switch" onclick="toggleModifier(this)">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                            </div>
+
+                            <div class="modifier-box toggle-box">
+                                <div class="modifier-title">One Hit Kill</div>
+                                <div class="toggle-switch" onclick="toggleModifier(this)">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                            </div>
+
+                            <div class="modifier-box toggle-box">
+                                <div class="modifier-title">Double Health</div>
+                                <div class="toggle-switch" onclick="toggleModifier(this)">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                            </div>
+
+                            <div class="modifier-box toggle-box">
+                                <div class="modifier-title">Unlimited Bankai/Resurreccion</div>
+                                <div class="toggle-switch" onclick="toggleModifier(this)">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                            </div>
+
+                            <div class="modifier-box toggle-box">
+                                <div class="modifier-title">Random Abilities on Spawn</div>
+                                <div class="toggle-switch" onclick="toggleModifier(this)">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <div class="settings-header">Server Settings</div>
+                            
+                            <div class="modifier-box toggle-box">
+                                <div class="modifier-title">Private Server</div>
+                                <div class="toggle-switch active" onclick="toggleModifier(this)">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                            </div>
+
+                            <div class="modifier-box toggle-box">
+                                <div class="modifier-title">Password Protected</div>
+                                <div class="toggle-switch" onclick="toggleModifier(this)">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                            </div>
+
+                            <div class="modifier-box toggle-box">
+                                <div class="modifier-title">Auto-Start When Full</div>
+                                <div class="toggle-switch active" onclick="toggleModifier(this)">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                            </div>
+
+                            <div class="modifier-box toggle-box">
+                                <div class="modifier-title">Allow Mid-Game Joins</div>
+                                <div class="toggle-switch active" onclick="toggleModifier(this)">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -812,15 +1023,26 @@
 
         // Update settings tab with current selections
         function updateSettingsTab() {
+            const timeLimitValue = document.getElementById('timeLimit') ? document.getElementById('timeLimit').value : '10';
             const settingsInfo = document.querySelector('.settings-info');
             settingsInfo.innerHTML = `
                 <strong>Currently Selected</strong><br>
                 Gamemode: ${selectedGamemodeData.name}<br>
                 Map: ${selectedMapName || 'None'}<br>
                 Players: ${selectedGamemodeData.players}<br>
-                Time Limit:<br>
+                Time Limit: ${timeLimitValue} minutes<br>
                 Modifiers:
             `;
+        }
+
+        // Toggle modifier switches
+        function toggleModifier(element) {
+            element.classList.toggle('active');
+        }
+
+        // Update time limit in sidebar
+        function updateTimeLimit() {
+            updateSettingsTab();
         }
 
         // Title selection
