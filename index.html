@@ -1619,7 +1619,7 @@
                 <a href="#" class="social-link">
                     <i class="fab fa-github"></i>
                 </a>
-                <a href="/cdn-cgi/l/email-protection#583b37362c393b2c1837392b312b763b3735" class="social-link">
+                <a href="mailto:contact@oasis.com" class="social-link">
                     <i class="fas fa-envelope"></i>
                 </a>
             </div>
@@ -1766,74 +1766,71 @@
     </div>
 
     <!-- Background Music Audio Element -->
-    <audio id="backgroundMusic" loop autoplay>
+    <audio id="backgroundMusic" loop>
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-      // Video Intro - Auto-hide when video ends (FIXED VERSION)
+    <script>
+        // ========================================
+        // VIDEO INTRO FIX - MULTIPLE FALLBACKS
+        // ========================================
         const videoIntro = document.getElementById('videoIntro');
         const introVideo = document.getElementById('introVideo');
+        let hasHidden = false;
         
-        // Function to hide the intro
         function hideVideoIntro() {
+            if (hasHidden) return;
+            hasHidden = true;
+            
             console.log('Hiding video intro...');
             videoIntro.classList.add('hide');
             setTimeout(() => {
                 videoIntro.style.display = 'none';
                 console.log('Video intro removed from display');
-            }, 1200); // Match the animation duration
+            }, 1200);
         }
         
-        // Primary: Auto-hide intro after video ends
+        // Method 1: ended event
         introVideo.addEventListener('ended', () => {
             console.log('Video ended event fired');
             hideVideoIntro();
         });
         
-        // Fallback 1: Check via timeupdate (in case 'ended' doesn't fire)
-        let hasHidden = false;
+        // Method 2: timeupdate check
         introVideo.addEventListener('timeupdate', function() {
-            if (!hasHidden && introVideo.duration > 0 && introVideo.currentTime >= introVideo.duration - 0.1) {
+            if (introVideo.duration > 0 && introVideo.currentTime >= introVideo.duration - 0.1) {
                 console.log('Video near end detected via timeupdate');
-                hasHidden = true;
                 hideVideoIntro();
             }
         });
         
-        // Fallback 2: Force hide after max duration (safety net)
+        // Method 3: timeout fallback
         setTimeout(() => {
-            if (videoIntro.style.display !== 'none' && !hasHidden) {
-                console.log('Forcing video hide after timeout');
-                hasHidden = true;
-                hideVideoIntro();
-            }
-        }, 15000); // Adjust based on your video length (15 seconds default)
+            console.log('Timeout triggered (15 seconds)');
+            hideVideoIntro();
+        }, 15000);
         
-        // Handle video errors
+        // Method 4: error handling
         introVideo.addEventListener('error', () => {
             console.error('Video failed to load, hiding intro');
             hideVideoIntro();
         });
         
-        // Optional: Skip on click anywhere on the intro
+        // Method 5: click to skip
         videoIntro.addEventListener('click', () => {
-            if (!hasHidden) {
-                console.log('User clicked to skip');
-                hasHidden = true;
-                hideVideoIntro();
-            }
+            console.log('User clicked to skip');
+            hideVideoIntro();
         });
 
-        // Music Player
+        // ========================================
+        // MUSIC PLAYER
+        // ========================================
         const backgroundMusic = document.getElementById('backgroundMusic');
         const playBtn = document.getElementById('playBtn');
         const volumeSlider = document.getElementById('volumeSlider');
 
-        // Set initial volume
         backgroundMusic.volume = 0.5;
 
-        // Aggressively try to autoplay music immediately
         function tryPlayMusic() {
             if (backgroundMusic.paused) {
                 backgroundMusic.play().catch(e => {
@@ -1842,18 +1839,48 @@
             }
         }
 
-        // Try immediately when script loads
         tryPlayMusic();
-
-        // Try when page fully loads
         window.addEventListener('load', tryPlayMusic);
-
-        // Try on first any user interaction
         ['click', 'touchstart', 'keydown'].forEach(event => {
             document.addEventListener(event, tryPlayMusic, { once: true });
         });
 
-        // Visitor Counter System
+        playBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            const icon = playBtn.querySelector('i');
+            if (backgroundMusic.paused) {
+                backgroundMusic.play().then(() => {
+                    icon.classList.remove('fa-play');
+                    icon.classList.add('fa-pause');
+                }).catch(err => {
+                    console.error('Play failed:', err);
+                });
+            } else {
+                backgroundMusic.pause();
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play');
+            }
+        });
+
+        volumeSlider.addEventListener('input', function () {
+            backgroundMusic.volume = this.value / 100;
+        });
+
+        backgroundMusic.addEventListener('play', () => {
+            const icon = playBtn.querySelector('i');
+            icon.classList.remove('fa-play');
+            icon.classList.add('fa-pause');
+        });
+
+        backgroundMusic.addEventListener('pause', () => {
+            const icon = playBtn.querySelector('i');
+            icon.classList.remove('fa-pause');
+            icon.classList.add('fa-play');
+        });
+
+        // ========================================
+        // VISITOR COUNTER
+        // ========================================
         const VISITOR_KEY = 'oasis_total_visits';
         const LAST_VISIT_KEY = 'oasis_last_visit';
         
@@ -1892,7 +1919,9 @@
 
         initVisitorCounter();
 
-        // Discord Presence System
+        // ========================================
+        // DISCORD PRESENCE
+        // ========================================
         const DISCORD_USER_ID = '890630436840173579';
         
         async function updateDiscordPresence() {
@@ -1927,42 +1956,9 @@
         updateDiscordPresence();
         setInterval(updateDiscordPresence, 30000);
 
-        // Music Player Controls
-        playBtn.addEventListener('click', function (e) {
-            e.stopPropagation();
-            const icon = playBtn.querySelector('i');
-            if (backgroundMusic.paused) {
-                backgroundMusic.play().then(() => {
-                    icon.classList.remove('fa-play');
-                    icon.classList.add('fa-pause');
-                }).catch(err => {
-                    console.error('Play failed:', err);
-                });
-            } else {
-                backgroundMusic.pause();
-                icon.classList.remove('fa-pause');
-                icon.classList.add('fa-play');
-            }
-        });
-
-        volumeSlider.addEventListener('input', function () {
-            backgroundMusic.volume = this.value / 100;
-        });
-
-        // Update button icon based on audio state
-        backgroundMusic.addEventListener('play', () => {
-            const icon = playBtn.querySelector('i');
-            icon.classList.remove('fa-play');
-            icon.classList.add('fa-pause');
-        });
-
-        backgroundMusic.addEventListener('pause', () => {
-            const icon = playBtn.querySelector('i');
-            icon.classList.remove('fa-pause');
-            icon.classList.add('fa-play');
-        });
-
-        // Smooth Scrolling
+        // ========================================
+        // SMOOTH SCROLLING
+        // ========================================
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1973,7 +1969,9 @@
             });
         });
 
-        // Fade-in on Scroll
+        // ========================================
+        // FADE-IN ON SCROLL
+        // ========================================
         const observerOptions = {
             threshold: 0.15,
             rootMargin: '0px 0px -80px 0px'
@@ -1991,7 +1989,9 @@
             observer.observe(element);
         });
 
-        // Admin Panel System
+        // ========================================
+        // ADMIN PANEL SYSTEM
+        // ========================================
         const ADMIN_PASSWORD_KEY = 'oasis_admin_pwd';
         const ADMIN_FILES_KEY = 'oasis_admin_files';
         const ADMIN_SESSION_KEY = 'oasis_admin_session';
@@ -2148,7 +2148,9 @@
             }
         });
 
-        // Drag and drop functionality
+        // ========================================
+        // DRAG AND DROP FUNCTIONALITY
+        // ========================================
         const uploadArea = document.querySelector('.file-upload-area');
         if (uploadArea) {
             ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
@@ -2181,4 +2183,6 @@
                 handleFileUpload({ target: { files: files, value: '' } });
             });
         }
-
+    </script>
+</body>
+</html>
