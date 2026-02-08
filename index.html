@@ -97,7 +97,6 @@
             border-top: none;
         }
 
-        /* GAMEMODES TAB */
         .gamemode-grid {
             display: grid;
             grid-template-columns: 300px 1fr;
@@ -193,7 +192,6 @@
             margin-top: 20px;
         }
 
-        /* MAPS TAB */
         .maps-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -245,7 +243,6 @@
             font-weight: bold;
         }
 
-        /* SETTINGS TAB */
         .settings-grid {
             display: grid;
             grid-template-columns: 250px 1fr;
@@ -336,7 +333,6 @@
             border-color: #888;
         }
 
-        /* Toggle Switch Styles */
         .toggle-box {
             display: flex;
             justify-content: space-between;
@@ -372,7 +368,6 @@
             left: 27px;
         }
 
-        /* INFO TAB */
         .info-boxes {
             display: flex;
             flex-direction: column;
@@ -385,19 +380,79 @@
             padding: 20px;
         }
 
-        .info-box.small {
-            min-height: 80px;
+        .nash-header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #4CAF50;
+            text-transform: uppercase;
+            letter-spacing: 3px;
         }
 
-        .info-box.medium {
-            min-height: 150px;
+        .nash-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
         }
 
-        .info-box.large {
-            min-height: 350px;
+        .nash-section {
+            background-color: #2a2a2a;
+            border: 1px solid #555;
+            padding: 15px;
         }
 
-        /* TITLES TAB */
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #4CAF50;
+            border-bottom: 1px solid #555;
+            padding-bottom: 5px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .stat-label {
+            color: #aaa;
+            font-size: 13px;
+        }
+
+        .stat-value {
+            color: #fff;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .abilities-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .ability-item {
+            background-color: #1a1a1a;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-left: 3px solid #4CAF50;
+        }
+
+        .ability-name {
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 4px;
+        }
+
+        .ability-desc {
+            font-size: 12px;
+            color: #888;
+        }
+
         .titles-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -420,7 +475,6 @@
             letter-spacing: 1px;
         }
 
-        /* Search bar styles */
         .search-container {
             margin-bottom: 15px;
             position: relative;
@@ -557,18 +611,6 @@
             border-bottom: 1px solid #555;
         }
 
-        .stat-label {
-            color: #aaa;
-            display: inline-block;
-            width: 150px;
-        }
-
-        .stat-value {
-            color: #fff;
-            font-weight: bold;
-        }
-
-        /* LOADOUTS TAB */
         .loadouts-message {
             text-align: center;
             padding: 50px;
@@ -589,7 +631,6 @@
         </div>
 
         <div class="content-wrapper">
-            <!-- GAMEMODES TAB -->
             <div id="gamemodes" class="tab-content active">
                 <div class="gamemode-grid">
                     <div class="gamemode-list">
@@ -644,7 +685,6 @@
                 </div>
             </div>
 
-            <!-- MAPS TAB -->
             <div id="maps" class="tab-content">
                 <div class="maps-grid">
                     <div class="map-card" onclick="selectMap(this, 'Wanden')">
@@ -670,7 +710,6 @@
                 </div>
             </div>
 
-            <!-- SETTINGS TAB -->
             <div id="settings" class="tab-content">
                 <div class="settings-grid">
                     <div class="settings-sidebar">
@@ -839,14 +878,12 @@
                 </div>
             </div>
 
-            <!-- LOADOUTS TAB -->
             <div id="loadouts" class="tab-content">
                 <div class="loadouts-message">
                     Loadouts feature coming soon...
                 </div>
             </div>
 
-            <!-- TITLES TAB -->
             <div id="titles" class="tab-content">
                 <div class="titles-grid">
                     <div class="box">
@@ -866,10 +903,9 @@
                             <div class="title-item" onclick="selectTitle(this, 'The Heat', 'The Heat')">The Heat</div>
                             <div class="title-item" onclick="selectTitle(this, 'The Iron', 'The Iron')">The Iron</div>
                             <div class="title-item" onclick="selectTitle(this, 'The Jail', 'The Jail')">The Jail</div>
-                            <div class="title-item" onclick="selectTitle(this, 'The Knightmare', 'The Knightmare')">The Knightmare</div>
                             <div class="title-item" onclick="selectTitle(this, 'The Love', 'The Love')">The Love</div>
                             <div class="title-item" onclick="selectTitle(this, 'The Miracle', 'The Miracle')">The Miracle</div>
-                            <div class="title-item" onclick="selectTitle(this, 'The Nothingness', 'The Nothingness')">The Nothingness</div>
+                            <div class="title-item" onclick="selectTitle(this, 'The Nimble', 'The Nimble')">The Nimble</div>
                             <div class="title-item" onclick="selectTitle(this, 'The Overkill', 'The Overkill')">The Overkill</div>
                             <div class="title-item" onclick="selectTitle(this, 'The Power', 'The Power')">The Power</div>
                             <div class="title-item" onclick="selectTitle(this, 'The Question', 'The Question')">The Question</div>
@@ -877,25 +913,10 @@
                             <div class="title-item" onclick="selectTitle(this, 'The Superstar', 'The Superstar')">The Superstar</div>
                             <div class="title-item" onclick="selectTitle(this, 'The Thunderbolt', 'The Thunderbolt')">The Thunderbolt</div>
                             <div class="title-item" onclick="selectTitle(this, 'The Underbelly', 'The Underbelly')">The Underbelly</div>
-                            <div class="title-item" onclick="selectTitle(this, 'The Vanishing Point', 'The Vanishing Point')">The Vanishing Point</div>
                             <div class="title-item" onclick="selectTitle(this, 'The Wind', 'The Wind')">The Wind</div>
                             <div class="title-item" onclick="selectTitle(this, 'The X-Axis', 'The X-Axis')">The X-Axis</div>
                             <div class="title-item" onclick="selectTitle(this, 'The Yourself', 'The Yourself')">The Yourself</div>
                             <div class="title-item" onclick="selectTitle(this, 'The Zombie', 'The Zombie')">The Zombie</div>
-                            <div class="title-item" onclick="selectTitle(this, 'Espada 0 - Cero', 'Cero')">Espada 0 - Cero</div>
-                            <div class="title-item" onclick="selectTitle(this, 'Espada 1 - Primera', 'Soledad')">Espada 1 - Primera</div>
-                            <div class="title-item" onclick="selectTitle(this, 'Espada 2 - Segunda', 'Arrogante')">Espada 2 - Segunda</div>
-                            <div class="title-item" onclick="selectTitle(this, 'Espada 3 - Tercera', 'Tiburon')">Espada 3 - Tercera</div>
-                            <div class="title-item" onclick="selectTitle(this, 'Espada 4 - Cuatro', 'Murcielago')">Espada 4 - Cuatro</div>
-                            <div class="title-item" onclick="selectTitle(this, 'Espada 5 - Quinto', 'Santa Teresa')">Espada 5 - Quinto</div>
-                            <div class="title-item" onclick="selectTitle(this, 'Espada 6 - Sexta', 'Pantera')">Espada 6 - Sexta</div>
-                            <div class="title-item" onclick="selectTitle(this, 'Espada 7 - Septima', 'Glotoneria')">Espada 7 - Septima</div>
-                            <div class="title-item" onclick="selectTitle(this, 'Espada 8 - Octava', 'Fornicaras')">Espada 8 - Octava</div>
-                            <div class="title-item" onclick="selectTitle(this, 'Espada 9 - Noveno', 'Ira')">Espada 9 - Noveno</div>
-                            <div class="title-item" onclick="selectTitle(this, 'Espada 10 - Decimo', 'Luppi')">Espada 10 - Decimo</div>
-                            <div class="title-item" onclick="selectTitle(this, 'Privaron Espada', 'Privaron')">Privaron Espada</div>
-                            <div class="title-item" onclick="selectTitle(this, 'Fraccion', 'Fraccion')">Fraccion</div>
-                            <div class="title-item" onclick="selectTitle(this, 'Arrancar Numero', 'Numero')">Arrancar Numero</div>
                         </div>
                     </div>
 
@@ -961,12 +982,125 @@
                 </div>
             </div>
 
-            <!-- INFO TAB -->
             <div id="info" class="tab-content">
                 <div class="info-boxes">
-                    <div class="info-box small">Info blah blah</div>
-                    <div class="info-box medium">Brief blah blah chud</div>
-                    <div class="info-box large">Miniguide chudddddddd</div>
+                    <div class="info-box">
+                        <div class="nash-header">Nash Type Soul 226</div>
+                        
+                        <div class="nash-grid">
+                            <div class="nash-section">
+                                <div class="section-title">Base Stats</div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Level</span>
+                                    <span class="stat-value">226</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Health</span>
+                                    <span class="stat-value">8,500</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Rei</span>
+                                    <span class="stat-value">12,000</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Stamina</span>
+                                    <span class="stat-value">450</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Speed</span>
+                                    <span class="stat-value">185</span>
+                                </div>
+                            </div>
+
+                            <div class="nash-section">
+                                <div class="section-title">Combat Stats</div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Damage Output</span>
+                                    <span class="stat-value">High</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Defense</span>
+                                    <span class="stat-value">Medium</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Range</span>
+                                    <span class="stat-value">Long</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Mobility</span>
+                                    <span class="stat-value">Very High</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Difficulty</span>
+                                    <span class="stat-value">Advanced</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="nash-section" style="margin-top: 20px;">
+                            <div class="section-title">Signature Abilities</div>
+                            <ul class="abilities-list">
+                                <li class="ability-item">
+                                    <div class="ability-name">Projection Sorcery</div>
+                                    <div class="ability-desc">High-speed movement technique that creates afterimages. Allows rapid repositioning and evasive maneuvers.</div>
+                                </li>
+                                <li class="ability-item">
+                                    <div class="ability-name">24 FPS Animation</div>
+                                    <div class="ability-desc">Freezes opponents in predetermined movements. Break the frame sequence to stun enemies.</div>
+                                </li>
+                                <li class="ability-item">
+                                    <div class="ability-name">Acceleration Barrage</div>
+                                    <div class="ability-desc">Unleashes a devastating combo of strikes at maximum speed. Deals heavy damage with stun potential.</div>
+                                </li>
+                                <li class="ability-item">
+                                    <div class="ability-name">Frame Perfect Counter</div>
+                                    <div class="ability-desc">Perfect timing counter that reflects damage back to attacker. Requires precise execution.</div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="nash-grid" style="margin-top: 20px;">
+                            <div class="nash-section">
+                                <div class="section-title">Strengths</div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Speed Dominance</span>
+                                    <span class="stat-value">✓</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Combo Potential</span>
+                                    <span class="stat-value">✓</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Movement Control</span>
+                                    <span class="stat-value">✓</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">High Skill Ceiling</span>
+                                    <span class="stat-value">✓</span>
+                                </div>
+                            </div>
+
+                            <div class="nash-section">
+                                <div class="section-title">Weaknesses</div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Lower Defense</span>
+                                    <span class="stat-value">✗</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Timing Dependent</span>
+                                    <span class="stat-value">✗</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Stamina Management</span>
+                                    <span class="stat-value">✗</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Learning Curve</span>
+                                    <span class="stat-value">✗</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -975,70 +1109,50 @@
     </div>
 
     <script>
-        // Global state to track selections
         let selectedGamemodeData = {
             name: 'Cascade',
             players: '1-20'
         };
         let selectedMapName = '';
 
-        // Tab switching function
         function switchTab(tabName) {
-            // Hide all tab contents
             const allTabs = document.querySelectorAll('.tab-content');
             allTabs.forEach(tab => tab.classList.remove('active'));
 
-            // Remove active class from all nav items
             const allNavItems = document.querySelectorAll('.nav-item');
             allNavItems.forEach(item => item.classList.remove('active'));
 
-            // Show selected tab
             document.getElementById(tabName).classList.add('active');
-
-            // Add active class to clicked nav item
             event.target.classList.add('active');
         }
 
-        // Gamemode selection
         function selectGamemode(element, name, players) {
-            // Remove selection from all items
             const allGamemodes = document.querySelectorAll('.gamemode-item');
             allGamemodes.forEach(item => item.classList.remove('selected'));
 
-            // Add selection to clicked item
             element.classList.add('selected');
 
-            // Update preview
             document.getElementById('gamemodeTitle').textContent = name;
             document.getElementById('gamemodePlayerCount').textContent = players;
 
-            // Store selected gamemode data
             selectedGamemodeData = {
                 name: name,
                 players: players
             };
 
-            // Update settings tab
             updateSettingsTab();
         }
 
-        // Map selection
         function selectMap(element, mapName) {
-            // Remove selection from all maps
             const allMaps = document.querySelectorAll('.map-card');
             allMaps.forEach(map => map.classList.remove('selected'));
 
-            // Add selection to clicked map
             element.classList.add('selected');
-
-            // Store selected map
             selectedMapName = mapName;
 
-            // Update settings tab
             updateSettingsTab();
         }
 
-        // Update settings tab with current selections
         function updateSettingsTab() {
             const timeLimitValue = document.getElementById('timeLimit') ? document.getElementById('timeLimit').value : '10';
             const settingsInfo = document.querySelector('.settings-info');
@@ -1052,44 +1166,29 @@
             `;
         }
 
-        // Toggle modifier switches
         function toggleModifier(element) {
             element.classList.toggle('active');
         }
 
-        // Update time limit in sidebar
         function updateTimeLimit() {
             updateSettingsTab();
         }
 
-        // Title selection
         function selectTitle(element, titleName, schriftOrRes) {
-            // Remove previous selection
             const allTitles = document.querySelectorAll('.title-item');
             allTitles.forEach(item => item.classList.remove('selected'));
 
-            // Add selection to clicked item
             element.classList.add('selected');
 
-            // Update stats display
             document.getElementById('statsTitle').textContent = titleName;
             document.getElementById('statRei').textContent = 'None';
             document.getElementById('statHealth').textContent = 'None';
             document.getElementById('statWeapon').textContent = 'None';
             
-            // Check if it's an Arrancar title (Espada, Privaron, Fraccion, Numero)
-            if (titleName.includes('Espada') || titleName.includes('Privaron') || titleName.includes('Fraccion') || titleName.includes('Arrancar Numero')) {
-                // Change label to "Resurreccion:" for Arrancar
-                document.querySelector('.stat-item:last-child .stat-label').textContent = 'Resurreccion:';
-                document.getElementById('statSchrift').textContent = schriftOrRes;
-            } else {
-                // Keep label as "Schrift:" for Sternritter
-                document.querySelector('.stat-item:last-child .stat-label').textContent = 'Schrift:';
-                document.getElementById('statSchrift').textContent = schriftOrRes;
-            }
+            document.querySelector('.stat-item:last-child .stat-label').textContent = 'Schrift:';
+            document.getElementById('statSchrift').textContent = schriftOrRes;
         }
 
-        // Search filter function
         function filterTitles() {
             const searchInput = document.getElementById('titleSearch').value.toLowerCase();
             const titleItems = document.querySelectorAll('.title-item');
@@ -1104,7 +1203,6 @@
             });
         }
 
-        // Initialize settings on page load
         document.addEventListener('DOMContentLoaded', function() {
             updateSettingsTab();
         });
