@@ -1771,16 +1771,58 @@
     </audio>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Video Intro - Auto-hide when video ends (no skip button)
+      // Video Intro - Auto-hide when video ends (FIXED VERSION)
         const videoIntro = document.getElementById('videoIntro');
         const introVideo = document.getElementById('introVideo');
         
-        // Auto-hide intro after video ends
-        introVideo.addEventListener('ended', () => {
+        // Function to hide the intro
+        function hideVideoIntro() {
+            console.log('Hiding video intro...');
             videoIntro.classList.add('hide');
             setTimeout(() => {
                 videoIntro.style.display = 'none';
-            }, 1000);
+                console.log('Video intro removed from display');
+            }, 1200); // Match the animation duration
+        }
+        
+        // Primary: Auto-hide intro after video ends
+        introVideo.addEventListener('ended', () => {
+            console.log('Video ended event fired');
+            hideVideoIntro();
+        });
+        
+        // Fallback 1: Check via timeupdate (in case 'ended' doesn't fire)
+        let hasHidden = false;
+        introVideo.addEventListener('timeupdate', function() {
+            if (!hasHidden && introVideo.duration > 0 && introVideo.currentTime >= introVideo.duration - 0.1) {
+                console.log('Video near end detected via timeupdate');
+                hasHidden = true;
+                hideVideoIntro();
+            }
+        });
+        
+        // Fallback 2: Force hide after max duration (safety net)
+        setTimeout(() => {
+            if (videoIntro.style.display !== 'none' && !hasHidden) {
+                console.log('Forcing video hide after timeout');
+                hasHidden = true;
+                hideVideoIntro();
+            }
+        }, 15000); // Adjust based on your video length (15 seconds default)
+        
+        // Handle video errors
+        introVideo.addEventListener('error', () => {
+            console.error('Video failed to load, hiding intro');
+            hideVideoIntro();
+        });
+        
+        // Optional: Skip on click anywhere on the intro
+        videoIntro.addEventListener('click', () => {
+            if (!hasHidden) {
+                console.log('User clicked to skip');
+                hasHidden = true;
+                hideVideoIntro();
+            }
         });
 
         // Music Player
@@ -2135,4 +2177,8 @@
             uploadArea.addEventListener('drop', function(e) {
                 const dt = e.dataTransfer;
                 const files = dt.files;
-                document.getElementById('fileInp
+                document.getElementById('fileInput').files = files;
+                handleFileUpload({ target: { files: files, value: '' } });
+            });
+        }
+
