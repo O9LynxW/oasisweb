@@ -38,7 +38,6 @@
             line-height: 1.6;
         }
 
-        /* Video Intro Overlay */
         .video-intro-overlay {
             position: fixed;
             top: 0;
@@ -122,7 +121,6 @@
             }
         }
 
-        /* Animated Grid Background */
         .grid-bg {
             position: fixed;
             top: 0;
@@ -147,7 +145,6 @@
             }
         }
 
-        /* Glow Effects */
         .glow-orb {
             position: fixed;
             width: 800px;
@@ -196,7 +193,6 @@
             }
         }
 
-        /* Floating Icons Background */
         .floating-icons {
             position: fixed;
             top: 0;
@@ -283,7 +279,6 @@
             }
         }
 
-        /* Navigation */
         nav {
             position: fixed;
             top: 0;
@@ -350,7 +345,6 @@
             width: 100%;
         }
 
-        /* Music Player */
         .music-player {
             position: fixed;
             top: 90px;
@@ -453,7 +447,6 @@
             box-shadow: 0 2px 8px rgba(147, 51, 234, 0.5);
         }
 
-        /* Hero Section */
         .hero {
             position: relative;
             min-height: 100vh;
@@ -503,7 +496,6 @@
             }
         }
 
-        /* Hero Stats - Discord & Visitor Counter */
         .hero-stats {
             display: flex;
             justify-content: center;
@@ -545,7 +537,6 @@
             transform: translateY(-5px);
         }
 
-        /* Discord Status Card */
         .discord-stat {
             min-width: 280px;
         }
@@ -613,7 +604,6 @@
             gap: 5px;
         }
 
-        /* Visitor Counter Card */
         .visitor-stat {
             min-width: 180px;
         }
@@ -678,9 +668,79 @@
         .hero .tagline {
             font-size: 20px;
             color: var(--gray);
-            margin-bottom: 50px;
+            margin-bottom: 25px;
             font-family: 'Courier New', monospace;
             font-weight: 600;
+        }
+
+        .commission-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(17, 17, 17, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 12px 24px;
+            border-radius: 50px;
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            margin-top: 20px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(249, 115, 22, 0.2);
+        }
+
+        .commission-status:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(249, 115, 22, 0.4);
+            border-color: rgba(249, 115, 22, 0.6);
+        }
+
+        .commission-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #f97316;
+            box-shadow: 0 0 12px rgba(249, 115, 22, 0.8),
+                        0 0 24px rgba(249, 115, 22, 0.4);
+            animation: pulseOrange 2s ease-in-out infinite;
+            position: relative;
+        }
+
+        .commission-indicator::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: rgba(249, 115, 22, 0.3);
+            animation: rippleOrange 2s ease-out infinite;
+        }
+
+        @keyframes pulseOrange {
+            0%, 100% {
+                box-shadow: 0 0 12px rgba(249, 115, 22, 0.8),
+                            0 0 24px rgba(249, 115, 22, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(249, 115, 22, 1),
+                            0 0 40px rgba(249, 115, 22, 0.6);
+            }
+        }
+
+        @keyframes rippleOrange {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2.5);
+                opacity: 0;
+            }
+        }
+
+        .commission-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fbbf24;
+            letter-spacing: 0.5px;
         }
 
         .social-links {
@@ -733,72 +793,58 @@
             color: var(--white);
         }
 
-       /* Banner Section */
-.banner-section {
-    position: relative;
-    width: 100%;
-    padding: 60px 0;
-    margin: 0;
-    z-index: 1;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(147, 51, 234, 0.05) 50%, rgba(0, 0, 0, 0) 100%);
-}
+        .banner-section {
+            position: relative;
+            width: 100%;
+            padding: 60px 0;
+            margin: 0;
+            z-index: 1;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(147, 51, 234, 0.05) 50%, rgba(0, 0, 0, 0) 100%);
+        }
 
-.banner-container {
-    width: 100%;
-    max-height: 350px;  /* CHANGED FROM 200px to 350px */
-    overflow: hidden;
-    position: relative;
-    border-top: 2px solid rgba(147, 51, 234, 0.3);
-    border-bottom: 3px solid rgba(147, 51, 234, 0.5);
-    box-shadow: 0 0 40px rgba(147, 51, 234, 0.3), 0 0 80px rgba(147, 51, 234, 0.1);
-    margin: 0;
-}
+        .banner-container {
+            width: 100%;
+            max-height: 350px;
+            overflow: hidden;
+            position: relative;
+            border-top: 2px solid rgba(147, 51, 234, 0.3);
+            border-bottom: 3px solid rgba(147, 51, 234, 0.5);
+            box-shadow: 0 0 40px rgba(147, 51, 234, 0.3), 0 0 80px rgba(147, 51, 234, 0.1);
+            margin: 0;
+        }
 
-.banner-image {
-    width: 100%;
-    height: 350px;  /* CHANGED FROM 200px to 350px */
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    filter: brightness(0.85);
-    transition: filter 0.3s ease, transform 0.3s ease;
-    background: var(--bg-black);
-}
+        .banner-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            filter: brightness(0.85);
+            transition: filter 0.3s ease, transform 0.3s ease;
+            background: var(--bg-black);
+        }
 
-.banner-container:hover .banner-image {
-    filter: brightness(1);
-    transform: scale(1.02);
-}
+        .banner-container:hover .banner-image {
+            filter: brightness(1);
+            transform: scale(1.02);
+        }
 
-.banner-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, 
-        rgba(147, 51, 234, 0.1) 0%, 
-        transparent 20%, 
-        transparent 80%, 
-        rgba(147, 51, 234, 0.1) 100%);
-    pointer-events: none;
-    z-index: 1;
-}
+        .banner-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                rgba(147, 51, 234, 0.1) 0%, 
+                transparent 20%, 
+                transparent 80%, 
+                rgba(147, 51, 234, 0.1) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
 
-/* Mobile Responsive - Banner */
-@media (max-width: 768px) {
-    .banner-container {
-        max-height: 200px;  /* CHANGED FROM 150px to 200px for better mobile view */
-        margin: 0;
-    }
-    
-    .banner-image {
-        height: 200px;  /* CHANGED FROM 150px to 200px */
-    }
-}
-
-        /* Section Styles */
         section {
             position: relative;
             padding: 100px 60px;
@@ -877,7 +923,6 @@
             }
         }
 
-        /* Projects Grid */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -976,7 +1021,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Info Cards */
         .info-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -1038,7 +1082,6 @@
             font-size: 18px;
         }
 
-        /* Contributions Section */
         .contributions-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -1147,7 +1190,6 @@
             color: var(--purple-light);
         }
 
-        /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -1183,7 +1225,6 @@
             transform: translateY(0);
         }
 
-        /* Scroll Indicator */
         .scroll-indicator {
             position: absolute;
             bottom: 50px;
@@ -1206,7 +1247,6 @@
             }
         }
 
-        /* Mobile Responsive */
         @media (max-width: 768px) {
             nav {
                 padding: 20px 30px;
@@ -1234,12 +1274,12 @@
             }
 
             .banner-container {
-                max-height: 150px;
+                max-height: 200px;
                 margin: 0;
             }
             
             .banner-image {
-                height: 150px;
+                height: 200px;
             }
 
             .projects-grid,
@@ -1248,7 +1288,6 @@
                 grid-template-columns: 1fr;
             }
 
-            /* Smaller music player on mobile */
             .music-player {
                 min-width: auto;
                 right: 15px;
@@ -1286,7 +1325,6 @@
                 width: 50px;
             }
 
-            /* Hero stats responsive */
             .hero-stats {
                 gap: 15px;
             }
@@ -1321,6 +1359,20 @@
                 font-size: 14px;
             }
 
+            .commission-status {
+                padding: 10px 20px;
+                gap: 10px;
+            }
+            
+            .commission-indicator {
+                width: 10px;
+                height: 10px;
+            }
+            
+            .commission-text {
+                font-size: 12px;
+            }
+
             section {
                 padding: 80px 30px;
             }
@@ -1331,7 +1383,6 @@
             }
         }
 
-        /* Admin Panel Styles */
         .admin-overlay {
             display: none;
             position: fixed;
@@ -1529,7 +1580,6 @@
 </head>
 
 <body>
-    <!-- Video Intro Overlay -->
     <div class="video-intro-overlay" id="videoIntro">
         <div class="video-intro-container">
             <video class="intro-video" id="introVideo" autoplay muted>
@@ -1538,12 +1588,10 @@
         </div>
     </div>
 
-    <!-- Animated Background -->
     <div class="grid-bg"></div>
     <div class="glow-orb glow-orb-1"></div>
     <div class="glow-orb glow-orb-2"></div>
 
-    <!-- Floating Icons -->
     <div class="floating-icons">
         <i class="floating-icon fas fa-wand-magic-sparkles"></i>
         <i class="floating-icon fas fa-code"></i>
@@ -1553,7 +1601,6 @@
         <i class="floating-icon fas fa-sparkles"></i>
     </div>
 
-    <!-- Navigation -->
     <nav>
         <div class="logo" onclick="openAdminPanel()">OASIS</div>
         <ul>
@@ -1564,7 +1611,6 @@
         </ul>
     </nav>
 
-    <!-- Music Player -->
     <div class="music-player">
         <div class="track-info">
             <div class="track-title">True Form Mahito</div>
@@ -1579,7 +1625,6 @@
         </div>
     </div>
 
-    <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-content">
             <div class="profile-pic">
@@ -1587,9 +1632,7 @@
                     alt="Oasis Profile" width="220" height="220" fetchpriority="high">
             </div>
 
-            <!-- Hero Stats - Discord & Visitor Counter -->
             <div class="hero-stats">
-                <!-- Discord Status Card -->
                 <div class="stat-card discord-stat">
                     <div class="discord-header-inline">
                         <div style="position: relative;">
@@ -1606,7 +1649,6 @@
                     </div>
                 </div>
 
-                <!-- Visitor Counter Card -->
                 <div class="stat-card visitor-stat">
                     <div class="visitor-counter-inline">
                         <div class="visitor-counter-label-inline">
@@ -1620,6 +1662,11 @@
             <h1>Oasis</h1>
             <p class="subtitle">VFX & Lua U Scripting</p>
             <p class="tagline">>> we might be back? <<<</p>
+
+            <div class="commission-status">
+                <div class="commission-indicator"></div>
+                <span class="commission-text">Open to Small Work</span>
+            </div>
 
             <div class="social-links">
                 <a href="https://www.tiktok.com/@oasisalt" target="_blank" class="social-link">
@@ -1641,7 +1688,6 @@
         </div>
     </section>
 
-    <!-- Banner Section -->
     <section class="banner-section">
         <div class="banner-container">
             <img src="wedwdwdwe.png"
@@ -1649,7 +1695,6 @@
         </div>
     </section>
 
-    <!-- Work/Projects Section -->
     <section id="work" class="fade-in">
         <h2 class="section-title">My Work</h2>
         <div class="projects-grid">
@@ -1674,7 +1719,6 @@
         </div>
     </section>
 
-    <!-- Info Section -->
     <section id="info" class="fade-in">
         <h2 class="section-title">Info & Skills</h2>
         <div class="info-cards">
@@ -1692,10 +1736,10 @@
             <div class="info-card">
                 <h3><i class="fas fa-star"></i> Specializations</h3>
                 <ul>
-                    <li>Custom VFX </li>
-                    <li> Scripting Systems</li>
+                    <li>Custom VFX</li>
+                    <li>Frontend Scripter</li>
+                    <li>Backend Scripter</li>
                     <li>Combat Mechanics</li>
-                    <li>Environmental Effects</li>
                 </ul>
             </div>
 
@@ -1712,7 +1756,6 @@
         </div>
     </section>
 
-    <!-- Contributions Section -->
     <section id="contributions" class="fade-in">
         <h2 class="section-title">Contributions</h2>
         <div class="contributions-grid">
@@ -1730,7 +1773,6 @@
         </div>
     </section>
 
-    <!-- Admin Panel -->
     <div class="admin-overlay" id="adminOverlay">
         <div class="admin-panel">
             <div class="admin-header">
@@ -1738,7 +1780,6 @@
                 <button class="close-admin" onclick="closeAdminPanel()">×</button>
             </div>
 
-            <!-- Login Form -->
             <div id="loginSection">
                 <form class="login-form" onsubmit="adminLogin(event)">
                     <input type="password" class="admin-input" id="adminPassword" placeholder="Enter Admin Password" required>
@@ -1749,7 +1790,6 @@
                 <div id="loginError"></div>
             </div>
 
-            <!-- Admin Content (Hidden until logged in) -->
             <div class="admin-content" id="adminContent">
                 <h3 style="color: var(--purple); margin-bottom: 20px;">
                     <i class="fas fa-folder"></i> File Manager
@@ -1762,7 +1802,6 @@
                 </div>
 
                 <div class="file-list" id="fileList">
-                    <!-- Files will be loaded here -->
                 </div>
 
                 <div style="margin-top: 30px; padding-top: 30px; border-top: 2px solid rgba(147, 51, 234, 0.3);">
@@ -1777,15 +1816,11 @@
         </div>
     </div>
 
-    <!-- Background Music Audio Element -->
     <audio id="backgroundMusic" loop>
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // ========================================
-        // VIDEO INTRO FIX - MULTIPLE FALLBACKS
-        // ========================================
         const videoIntro = document.getElementById('videoIntro');
         const introVideo = document.getElementById('introVideo');
         let hasHidden = false;
@@ -1802,13 +1837,11 @@
             }, 1200);
         }
         
-        // Method 1: ended event
         introVideo.addEventListener('ended', () => {
             console.log('Video ended event fired');
             hideVideoIntro();
         });
         
-        // Method 2: timeupdate check
         introVideo.addEventListener('timeupdate', function() {
             if (introVideo.duration > 0 && introVideo.currentTime >= introVideo.duration - 0.1) {
                 console.log('Video near end detected via timeupdate');
@@ -1816,27 +1849,21 @@
             }
         });
         
-        // Method 3: timeout fallback
         setTimeout(() => {
             console.log('Timeout triggered (15 seconds)');
             hideVideoIntro();
         }, 15000);
         
-        // Method 4: error handling
         introVideo.addEventListener('error', () => {
             console.error('Video failed to load, hiding intro');
             hideVideoIntro();
         });
         
-        // Method 5: click to skip
         videoIntro.addEventListener('click', () => {
             console.log('User clicked to skip');
             hideVideoIntro();
         });
 
-        // ========================================
-        // MUSIC PLAYER
-        // ========================================
         const backgroundMusic = document.getElementById('backgroundMusic');
         const playBtn = document.getElementById('playBtn');
         const volumeSlider = document.getElementById('volumeSlider');
@@ -1890,9 +1917,6 @@
             icon.classList.add('fa-play');
         });
 
-        // ========================================
-        // VISITOR COUNTER
-        // ========================================
         const VISITOR_KEY = 'oasis_total_visits';
         const LAST_VISIT_KEY = 'oasis_last_visit';
         
@@ -1931,9 +1955,6 @@
 
         initVisitorCounter();
 
-        // ========================================
-        // DISCORD PRESENCE
-        // ========================================
         const DISCORD_USER_ID = '890630436840173579';
         
         async function updateDiscordPresence() {
@@ -1968,9 +1989,6 @@
         updateDiscordPresence();
         setInterval(updateDiscordPresence, 30000);
 
-        // ========================================
-        // SMOOTH SCROLLING
-        // ========================================
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1981,9 +1999,6 @@
             });
         });
 
-        // ========================================
-        // FADE-IN ON SCROLL
-        // ========================================
         const observerOptions = {
             threshold: 0.15,
             rootMargin: '0px 0px -80px 0px'
@@ -2001,9 +2016,6 @@
             observer.observe(element);
         });
 
-        // ========================================
-        // ADMIN PANEL SYSTEM
-        // ========================================
         const ADMIN_PASSWORD_KEY = 'oasis_admin_pwd';
         const ADMIN_FILES_KEY = 'oasis_admin_files';
         const ADMIN_SESSION_KEY = 'oasis_admin_session';
@@ -2160,9 +2172,6 @@
             }
         });
 
-        // ========================================
-        // DRAG AND DROP FUNCTIONALITY
-        // ========================================
         const uploadArea = document.querySelector('.file-upload-area');
         if (uploadArea) {
             ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
@@ -2198,5 +2207,3 @@
     </script>
 </body>
 </html>
-
-
