@@ -206,7 +206,6 @@ section{padding:4rem 1.2rem}
 .hero-cta{flex-direction:column;align-items:center}
 .btn{width:100%;justify-content:center}
 }
-
 .mp{
 position:fixed;bottom:1.4rem;left:1.4rem;z-index:200;
 display:flex;align-items:center;gap:.6rem;
@@ -446,7 +445,6 @@ dm me on discord for commissions, questions, or just to say hey.
 </div>
 </section>
 
-<!-- MUSIC PLAYER -->
 <audio id="bgm" src="music.mp3" loop preload="auto"></audio>
 <div class="mp" id="mp">
 <button class="mp-btn" id="mp-toggle" aria-label="Play/Pause">
@@ -494,7 +492,6 @@ const target = document.querySelector(a.getAttribute('href'));
 if (target) target.scrollIntoView({behavior: 'smooth', block: 'start'});
 });
 });
-// music player
 const bgm = document.getElementById('bgm');
 const mpToggle = document.getElementById('mp-toggle');
 const mpPlayIcon = document.getElementById('mp-play-icon');
@@ -520,7 +517,6 @@ setPlaying(false);
 mpVol.addEventListener('input', (e) => {
 bgm.volume = parseFloat(e.target.value);
 });
-
 
 function tryAutoplay() {
 if (bgm.paused) {
