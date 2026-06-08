@@ -244,6 +244,25 @@ width:12px;height:12px;border-radius:50%;border:none;
 background:var(--accent2);cursor:pointer;
 }
 .mp-label{font-size:.65rem;color:var(--text2);letter-spacing:.04em;white-space:nowrap}
+
+.dc-card{
+display:inline-flex;align-items:center;gap:.75rem;
+padding:.6rem 1rem .6rem .6rem;border-radius:10px;
+background:var(--surface);border:1px solid var(--border);
+transition:all .35s ease;margin-top:1.2rem;
+text-decoration:none;color:var(--text);
+}
+.dc-card:hover{border-color:var(--accentdim);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.dc-avatar{width:38px;height:38px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--border)}
+.dc-info{display:flex;flex-direction:column;gap:.1rem}
+.dc-name{font-size:.88rem;font-weight:600;letter-spacing:-.01em}
+.dc-status{display:flex;align-items:center;gap:.35rem;font-size:.72rem;color:var(--text2)}
+.dc-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.dc-dot.online{background:#3ba55d}
+.dc-dot.idle{background:#faa61a}
+.dc-dot.dnd{background:#ed4245}
+.dc-dot.offline{background:#747f8d}
+.dc-tag{font-size:.72rem;color:var(--text2);font-weight:400}
 </style>
 </head>
 <body>
@@ -274,7 +293,7 @@ background:var(--accent2);cursor:pointer;
 <p class="hero-enter" style="transition-delay:.55s">
 2+ years lua scripting. 1+ year vfx.<br>
 roblox lua scripter & vfx artist.<br>
-combat systems, skill kits, and effects that go crazy.
+combat systems and skill kits.
 </p>
 
 <div class="hero-cta hero-enter" style="transition-delay:.65s">
@@ -284,6 +303,14 @@ commission me
 </a>
 <a href="#work" class="btn btn-ghost">see my work</a>
 </div>
+
+<a href="https://discord.com/users/890630436840173579" target="_blank" class="dc-card hero-enter" style="transition-delay:.75s" id="dc-card">
+<img class="dc-avatar" id="dc-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='38' height='38'%3E%3Crect fill='%231a1726' width='38' height='38' rx='19'/%3E%3C/svg%3E" alt="">
+<div class="dc-info">
+<div class="dc-name" id="dc-name">loading...</div>
+<div class="dc-status"><span class="dc-dot offline" id="dc-dot"></span><span id="dc-status-text">discord</span></div>
+</div>
+</a>
 
 <div class="scroll-hint hero-enter" style="transition-delay:.9s">
 <div class="line"></div>
@@ -445,7 +472,7 @@ dm me on discord for commissions, questions, or just to say hey.
 </div>
 </section>
 
-<audio id="bgm" src="music.mp3" loop preload="auto"></audio>
+<audio id="bgm" src="64.mp3" loop preload="auto"></audio>
 <div class="mp" id="mp">
 <button class="mp-btn" id="mp-toggle" aria-label="Play/Pause">
 <svg id="mp-play-icon" viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg>
@@ -525,10 +552,37 @@ bgm.play().then(() => setPlaying(true)).catch(() => {});
 document.removeEventListener('click', tryAutoplay);
 document.removeEventListener('scroll', tryAutoplay);
 document.removeEventListener('keydown', tryAutoplay);
+document.removeEventListener('touchstart', tryAutoplay);
+document.removeEventListener('mousemove', tryAutoplay);
 }
+bgm.play().then(() => setPlaying(true)).catch(() => {
 document.addEventListener('click', tryAutoplay);
 document.addEventListener('scroll', tryAutoplay);
 document.addEventListener('keydown', tryAutoplay);
+document.addEventListener('touchstart', tryAutoplay);
+document.addEventListener('mousemove', tryAutoplay);
+});
+
+(async () => {
+try {
+const res = await fetch('https://api.lanyard.rest/v1/users/890630436840173579');
+const json = await res.json();
+if (!json.success) return;
+const d = json.data;
+const u = d.discord_user;
+const avatar = u.avatar
+? 'https://cdn.discordapp.com/avatars/' + u.id + '/' + u.avatar + '.webp?size=80'
+: 'https://cdn.discordapp.com/embed/avatars/' + ((BigInt(u.id) >> 22n) % 6n) + '.png';
+document.getElementById('dc-avatar').src = avatar;
+document.getElementById('dc-name').textContent = u.global_name || u.username;
+const dot = document.getElementById('dc-dot');
+const statusText = document.getElementById('dc-status-text');
+const s = d.discord_status;
+dot.className = 'dc-dot ' + s;
+const labels = {online:'online — dm me!',idle:'idle',dnd:'do not disturb',offline:'offline'};
+statusText.textContent = labels[s] || 'offline';
+} catch(e) {}
+})();
 </script>
 
 </body>
