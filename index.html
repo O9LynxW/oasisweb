@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="oasisss - roblox lua scripter and vfx artist. combat systems, skill kits and effects.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'; img-src 'self' data: https:; media-src 'self' https: blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src https://api.lanyard.rest; frame-src https://www.youtube-nocookie.com https://www.youtube.com https://streamable.com https://medal.tv;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'; img-src 'self' data: blob: file: https:; media-src 'self' blob: file: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src https://api.lanyard.rest; frame-src https://www.youtube-nocookie.com https://www.youtube.com https://streamable.com https://medal.tv;">
 <title>oasisss</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -314,24 +314,11 @@ scroll
 </div>
 <div class="PriceGrid">
 
-<div class="PriceCard">
-<div class="PriceTier">basic</div>
-<div class="PriceValue">3,000 R$</div>
-<div class="PriceAlt">~ $12 usd</div>
-<p class="PriceNote">one short, single stage effect.</p>
-<ul class="PriceList">
-<li>hit sparks, trails, simple auras</li>
-<li>stock particles and textures</li>
-<li>1 revision</li>
-<li>1&ndash;2 days</li>
-</ul>
-</div>
-
 <div class="PriceCard Featured">
 <div class="PriceTier">skill vfx</div>
-<div class="PriceValue">8,000 R$</div>
-<div class="PriceAlt">~ $30 usd</div>
-<p class="PriceNote">a full skill effect with startup, active and impact stages.</p>
+<div class="PriceValue">12,000 R$</div>
+<div class="PriceAlt">~ $45 usd</div>
+<p class="PriceNote">a full skill effect with startup, active and impact stages. the standard rate for one move.</p>
 <ul class="PriceList">
 <li>timed multi stage sequence</li>
 <li>custom textures and meshes</li>
@@ -342,14 +329,28 @@ scroll
 </div>
 
 <div class="PriceCard">
-<div class="PriceTier">ultimate</div>
-<div class="PriceValue">20,000 R$</div>
-<div class="PriceAlt">~ $75 usd</div>
-<p class="PriceNote">large cinematic effects and transformations.</p>
+<div class="PriceTier">advanced</div>
+<div class="PriceValue">25,000 R$</div>
+<div class="PriceAlt">~ $90 usd</div>
+<p class="PriceNote">heavier skills with more moving parts and longer sequences.</p>
 <ul class="PriceList">
-<li>beams, domes, terrain reactions</li>
+<li>beams, projectiles, ground reactions</li>
 <li>custom modelled and textured assets</li>
-<li>cutscene or camera work</li>
+<li>multi hit and follow up stages</li>
+<li>3 revisions</li>
+<li>5&ndash;8 days</li>
+</ul>
+</div>
+
+<div class="PriceCard">
+<div class="PriceTier">ultimate</div>
+<div class="PriceValue">50,000 R$</div>
+<div class="PriceAlt">~ $185 usd</div>
+<p class="PriceNote">the centrepiece effects. transformations, domes and cinematic ults.</p>
+<ul class="PriceList">
+<li>full cutscene and camera work</li>
+<li>environment and terrain reactions</li>
+<li>bespoke meshes, textures and shaders</li>
 <li>3 revisions</li>
 <li>1&ndash;2 weeks</li>
 </ul>
@@ -357,13 +358,13 @@ scroll
 
 <div class="PriceCard">
 <div class="PriceTier">moveset pack</div>
-<div class="PriceValue">60,000 R$</div>
-<div class="PriceAlt">~ $220 usd</div>
+<div class="PriceValue">120,000 R$</div>
+<div class="PriceAlt">~ $440 usd</div>
 <p class="PriceNote">4&ndash;6 skills built as one visually consistent kit.</p>
 <ul class="PriceList">
 <li>shared colour and texture language</li>
 <li>ultimate effect included</li>
-<li>bundle rate, ~20% under singles</li>
+<li>bundle rate, well under buying singles</li>
 <li>2&ndash;3 weeks</li>
 </ul>
 </div>
@@ -489,7 +490,7 @@ scroll
 <script>
 const SiteConfig = {
 DiscordUserId: "890630436840173579",
-MusicUrl: "",
+MusicUrl: "assets/Music.mp3",
 MusicVolume: 0.35
 };
 
@@ -498,7 +499,7 @@ const WorkProjects = [
 Name: "Type Soul",
 Role: "Developer — Combat, Skills, VFX",
 Description: "Bleach inspired combat game on Roblox. Built a large number of skill frontends and backends, from hitboxes and replication through to the effects themselves.",
-ThumbUrl: "",
+ThumbUrl: "assets/TypeSoul.png",
 Links: [
 { Label: "play on roblox", Url: "", Icon: "External" },
 { Label: "discord", Url: "", Icon: "Discord" }
@@ -508,7 +509,7 @@ Links: [
 Name: "Multi Mayhem",
 Role: "Lead Developer & Owner",
 Description: "Battlegrounds style game. I own and lead the project, handling combat mechanics, movesets, vfx and the direction of the game.",
-ThumbUrl: "",
+ThumbUrl: "assets/MultiMayhem.png",
 Links: [
 { Label: "play on roblox", Url: "", Icon: "External" },
 { Label: "discord", Url: "", Icon: "Discord" }
@@ -583,7 +584,8 @@ function SafeUrl(Value) {
 if (typeof Value !== "string" || Value.trim() === "") { return null; }
 try {
 const Parsed = new URL(Value, window.location.href);
-if (Parsed.protocol !== "https:" && Parsed.protocol !== "http:") { return null; }
+const Allowed = ["https:", "http:", window.location.protocol];
+if (Allowed.indexOf(Parsed.protocol) === -1) { return null; }
 return Parsed.href;
 } catch (Error) {
 return null;
