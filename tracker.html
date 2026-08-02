@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline';">
+<title>tracker &middot; oasisss</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--Bg:#0a0a0f;
+--Surface:#13111d;
+--Surface2:#1a1726;
+--Border:#2a2440;
+--Text:#e8e4f0;
+--TextDim:#9b93ad;
+--Accent:#8b5cf6;
+--Accent2:#a78bfa;
+--AccentDim:#6d44c7;
+--Green:#4ade80;
+--Red:#ed4245;
+--Ease:cubic-bezier(.25,.46,.45,.94);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--Bg);color:var(--Text);-webkit-font-smoothing:antialiased;padding:1.6rem 1.1rem 4rem}
+button,input,select{font-family:inherit;color:inherit}
+button{cursor:pointer;border:none;background:none}
+::selection{background:var(--Accent);color:#fff}
+:focus-visible{outline:2px solid var(--Accent2);outline-offset:2px;border-radius:4px}
+
+.Shell{max-width:760px;margin:0 auto}
+.Head{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:.4rem}
+.Head h1{font-family:'Outfit',sans-serif;font-size:1.7rem;font-weight:800;letter-spacing:-.03em}
+.Head a{font-size:.8rem;color:var(--TextDim);text-decoration:none}
+.Head a:hover{color:var(--Accent2)}
+.Lede{font-size:.85rem;color:var(--TextDim);line-height:1.6;margin-bottom:1.6rem}
+
+.Totals{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-bottom:1.6rem}
+.TotalCard{background:var(--Surface);border:1px solid var(--Border);border-radius:10px;padding:.9rem}
+.TotalValue{font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:800;letter-spacing:-.02em}
+.TotalLabel{font-size:.68rem;color:var(--TextDim);text-transform:uppercase;letter-spacing:.1em;margin-top:.2rem}
+
+.AddBox{background:var(--Surface);border:1px solid var(--Border);border-radius:12px;padding:1.1rem;margin-bottom:1.6rem}
+.AddBox h2{font-family:'Outfit',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.8rem}
+.Field{width:100%;background:var(--Surface2);border:1px solid var(--Border);border-radius:8px;padding:.65rem .8rem;font-size:.88rem;margin-bottom:.6rem}
+.Field::placeholder{color:#6b6480}
+.Field:focus{outline:none;border-color:var(--AccentDim)}
+
+.Btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;padding:.6rem 1.1rem;border-radius:8px;font-size:.82rem;font-weight:600;transition:all .25s ease}
+.BtnPrimary{background:var(--Accent);color:#fff;width:100%}
+.BtnPrimary:hover{background:var(--Accent2)}
+.BtnGhost{border:1px solid var(--Border);color:var(--TextDim)}
+.BtnGhost:hover{border-color:var(--Accent);color:var(--Accent2)}
+.BtnDanger{border:1px solid rgba(237,66,69,.3);color:#ed4245}
+.BtnDanger:hover{background:rgba(237,66,69,.1)}
+
+.Job{background:var(--Surface);border:1px solid var(--Border);border-radius:12px;padding:1.1rem;margin-bottom:1rem;transition:border-color .3s ease}
+.Job.Running{border-color:var(--AccentDim);background:linear-gradient(180deg,rgba(139,92,246,.08),var(--Surface))}
+.JobTop{display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem;margin-bottom:.8rem}
+.JobName{font-family:'Outfit',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:-.01em;word-break:break-word}
+.JobClient{font-size:.74rem;color:var(--TextDim);margin-top:.1rem}
+.JobStatus{background:var(--Surface2);border:1px solid var(--Border);border-radius:7px;padding:.35rem .5rem;font-size:.74rem;flex-shrink:0}
+
+.Clock{display:flex;align-items:center;justify-content:space-between;gap:.8rem;background:var(--Surface2);border:1px solid var(--Border);border-radius:10px;padding:.7rem .9rem;margin-bottom:.9rem}
+.ClockValue{font-family:'Outfit',sans-serif;font-size:1.35rem;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.Job.Running .ClockValue{color:var(--Accent2)}
+.ClockNote{font-size:.68rem;color:var(--TextDim);text-transform:uppercase;letter-spacing:.1em;margin-top:.1rem}
+.ClockBtn{padding:.55rem 1.1rem;border-radius:8px;font-size:.8rem;font-weight:700;background:var(--Accent);color:#fff;flex-shrink:0}
+.ClockBtn.Stop{background:var(--Red)}
+
+.Tasks{list-style:none;margin-bottom:.7rem}
+.Tasks li{display:flex;align-items:center;gap:.6rem;padding:.4rem 0;font-size:.86rem;line-height:1.4}
+.TaskTick{width:19px;height:19px;border-radius:5px;border:1px solid var(--Border);flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--Surface2)}
+.TaskTick svg{width:11px;height:11px;stroke:var(--Green);stroke-width:2.6;fill:none;opacity:0}
+.Tasks li.Complete .TaskTick{background:rgba(74,222,128,.15);border-color:rgba(74,222,128,.4)}
+.Tasks li.Complete .TaskTick svg{opacity:1}
+.TaskLabel{flex:1;text-align:left;color:var(--Text);word-break:break-word}
+.Tasks li.Complete .TaskLabel{color:var(--Green);text-decoration:line-through;text-decoration-color:rgba(74,222,128,.4)}
+.TaskKill{color:#5c5470;font-size:1.1rem;line-height:1;padding:0 .25rem;flex-shrink:0}
+.TaskKill:hover{color:var(--Red)}
+
+.TaskAdd{display:flex;gap:.5rem;margin-bottom:.9rem}
+.TaskAdd input{flex:1;margin-bottom:0}
+.TaskAdd button{padding:.6rem .9rem;border-radius:8px;background:var(--Surface2);border:1px solid var(--Border);font-size:.8rem;font-weight:600;color:var(--TextDim);flex-shrink:0}
+.TaskAdd button:hover{border-color:var(--Accent);color:var(--Accent2)}
+
+.JobFoot{display:flex;align-items:center;justify-content:space-between;gap:.8rem;border-top:1px solid var(--Border);padding-top:.8rem;font-size:.75rem;color:var(--TextDim)}
+.JobFoot button{font-size:.75rem;padding:.35rem .7rem;border-radius:6px}
+
+.Empty{padding:2rem;border:1px dashed var(--Border);border-radius:12px;text-align:center;color:var(--TextDim);font-size:.86rem;margin-bottom:1rem}
+
+.ExportBox{background:var(--Surface);border:1px solid var(--Border);border-radius:12px;padding:1.1rem;margin-top:1.6rem}
+.ExportBox h2{font-family:'Outfit',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.4rem}
+.ExportBox p{font-size:.8rem;color:var(--TextDim);line-height:1.6;margin-bottom:.9rem}
+.ExportOut{width:100%;min-height:150px;background:#05040a;border:1px solid var(--Border);border-radius:8px;padding:.8rem;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;line-height:1.5;color:var(--Accent2);resize:vertical;margin-bottom:.7rem;display:none}
+.ExportOut.Shown{display:block}
+.ExportRow{display:flex;gap:.6rem;flex-wrap:wrap}
+.Flash{font-size:.76rem;color:var(--Green);margin-top:.6rem;min-height:1rem}
+</style>
+</head>
+<body>
+
+<div class="Shell">
+
+<div class="Head">
+<h1>commission tracker</h1>
+<a href="index.html">back to site</a>
+</div>
+<p class="Lede">private to this browser. nothing here is uploaded anywhere. track time and tasks as you work, then hit export and paste the block into index.html when you want the public board updated.</p>
+
+<div class="Totals">
+<div class="TotalCard">
+<div class="TotalValue" id="TotalJobs">0</div>
+<div class="TotalLabel">jobs</div>
+</div>
+<div class="TotalCard">
+<div class="TotalValue" id="TotalTime">0h</div>
+<div class="TotalLabel">logged</div>
+</div>
+<div class="TotalCard">
+<div class="TotalValue" id="TotalTasks">0</div>
+<div class="TotalLabel">open tasks</div>
+</div>
+</div>
+
+<div class="AddBox">
+<h2>new commission</h2>
+<input class="Field" id="NewProject" type="text" placeholder="project name" autocomplete="off">
+<input class="Field" id="NewClient" type="text" placeholder="client (shown on the site)" autocomplete="off">
+<button class="Btn BtnPrimary" id="AddJob">add commission</button>
+</div>
+
+<div id="JobList"></div>
+
+<div class="ExportBox">
+<h2>export to site</h2>
+<p>this rebuilds the ActiveCommissions block in index.html. copy it, then replace the existing block in your file and commit.</p>
+<textarea class="ExportOut" id="ExportOut" readonly spellcheck="false"></textarea>
+<div class="ExportRow">
+<button class="Btn BtnGhost" id="ExportBtn">generate</button>
+<button class="Btn BtnGhost" id="CopyBtn">copy</button>
+<button class="Btn BtnDanger" id="WipeBtn">wipe all</button>
+</div>
+<div class="Flash" id="Flash"></div>
+</div>
+
+</div>
+
+<script>
+const StorageKey = "OasisTrackerV1";
+const TickIcon = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6.4l2.6 2.6L10 3.4"/></svg>';
+
+let Jobs = [];
+
+function LoadJobs() {
+try {
+const Raw = window.localStorage.getItem(StorageKey);
+if (!Raw) { return []; }
+const Parsed = JSON.parse(Raw);
+return Array.isArray(Parsed) ? Parsed : [];
+} catch (Error) {
+return [];
+}
+}
+
+function SaveJobs() {
+try {
+window.localStorage.setItem(StorageKey, JSON.stringify(Jobs));
+} catch (Error) {
+Flash("could not save, storage might be full or blocked", true);
+}
+}
+
+function MakeId() {
+return "j" + Date.now().toString(36) + Math.floor(Math.random() * 1000).toString(36);
+}
+
+function ElapsedFor(Job) {
+const Base = Number(Job.LoggedSeconds) || 0;
+if (!Job.RunningSince) { return Base; }
+const Extra = Math.floor((Date.now() - Job.RunningSince) / 1000);
+return Base + Math.max(0, Extra);
+}
+
+function FormatClock(Seconds) {
+const Total = Math.max(0, Math.floor(Seconds));
+const Hours = Math.floor(Total / 3600);
+const Minutes = Math.floor((Total % 3600) / 60);
+const Rest = Total % 60;
+return String(Hours).padStart(2, "0") + ":" + String(Minutes).padStart(2, "0") + ":" + String(Rest).padStart(2, "0");
+}
+
+function FormatShort(Seconds) {
+const Total = Math.max(0, Math.floor(Seconds));
+const Hours = Math.floor(Total / 3600);
+const Minutes = Math.floor((Total % 3600) / 60);
+if (Hours === 0) { return Minutes + "m"; }
+return Hours + "h " + Minutes + "m";
+}
+
+function Flash(Message, IsError) {
+const Element = document.getElementById("Flash");
+Element.style.color = IsError ? "#ed4245" : "#4ade80";
+Element.textContent = Message;
+window.setTimeout(function () {
+if (Element.textContent === Message) { Element.textContent = ""; }
+}, 3000);
+}
+
+function StopJob(Job) {
+if (!Job.RunningSince) { return; }
+Job.LoggedSeconds = ElapsedFor(Job);
+Job.RunningSince = null;
+}
+
+function ToggleTimer(Id) {
+const Target = Jobs.find(function (Job) { return Job.Id === Id; });
+if (!Target) { return; }
+const WasRunning = Boolean(Target.RunningSince);
+Jobs.forEach(function (Job) { StopJob(Job); });
+if (!WasRunning) {
+Target.RunningSince = Date.now();
+Target.Status = "Active";
+}
+SaveJobs();
+Render();
+}
+
+function AddJob() {
+const ProjectInput = document.getElementById("NewProject");
+const ClientInput = document.getElementById("NewClient");
+const Project = ProjectInput.value.trim();
+if (Project === "") { Flash("give it a project name first", true); return; }
+
+Jobs.unshift({
+Id: MakeId(),
+Project: Project,
+Client: ClientInput.value.trim(),
+Status: "Queued",
+LoggedSeconds: 0,
+RunningSince: null,
+Tasks: []
+});
+
+ProjectInput.value = "";
+ClientInput.value = "";
+SaveJobs();
+Render();
+}
+
+function AddTask(Id, Label) {
+const Target = Jobs.find(function (Job) { return Job.Id === Id; });
+if (!Target || Label.trim() === "") { return; }
+Target.Tasks.push({ Id: MakeId(), Label: Label.trim(), Done: false });
+SaveJobs();
+Render();
+}
+
+function ToggleTask(JobId, TaskId) {
+const Target = Jobs.find(function (Job) { return Job.Id === JobId; });
+if (!Target) { return; }
+const Task = Target.Tasks.find(function (Entry) { return Entry.Id === TaskId; });
+if (!Task) { return; }
+Task.Done = !Task.Done;
+SaveJobs();
+Render();
+}
+
+function RemoveTask(JobId, TaskId) {
+const Target = Jobs.find(function (Job) { return Job.Id === JobId; });
+if (!Target) { return; }
+Target.Tasks = Target.Tasks.filter(function (Entry) { return Entry.Id !== TaskId; });
+SaveJobs();
+Render();
+}
+
+function RemoveJob(Id) {
+const Target = Jobs.find(function (Job) { return Job.Id === Id; });
+if (!Target) { return; }
+if (!window.confirm("delete " + Target.Project + " and its logged time?")) { return; }
+Jobs = Jobs.filter(function (Job) { return Job.Id !== Id; });
+SaveJobs();
+Render();
+}
+
+function SetStatus(Id, Value) {
+const Target = Jobs.find(function (Job) { return Job.Id === Id; });
+if (!Target) { return; }
+if (Value !== "Active") { StopJob(Target); }
+Target.Status = Value;
+SaveJobs();
+Render();
+}
+
+function BuildJobCard(Job) {
+const Card = document.createElement("article");
+Card.className = "Job";
+if (Job.RunningSince) { Card.classList.add("Running"); }
+
+const Top = document.createElement("div");
+Top.className = "JobTop";
+
+const Names = document.createElement("div");
+const Name = document.createElement("div");
+Name.className = "JobName";
+Name.textContent = Job.Project;
+const Client = document.createElement("div");
+Client.className = "JobClient";
+Client.textContent = Job.Client ? "for " + Job.Client : "no client set";
+Names.appendChild(Name);
+Names.appendChild(Client);
+
+const Status = document.createElement("select");
+Status.className = "JobStatus";
+[["Active", "working"], ["Queued", "queued"], ["Done", "delivered"], ["Hidden", "hidden"]].forEach(function (Pair) {
+const Option = document.createElement("option");
+Option.value = Pair[0];
+Option.textContent = Pair[1];
+if (Job.Status === Pair[0]) { Option.selected = true; }
+Status.appendChild(Option);
+});
+Status.addEventListener("change", function () { SetStatus(Job.Id, Status.value); });
+
+Top.appendChild(Names);
+Top.appendChild(Status);
+Card.appendChild(Top);
+
+const Clock = document.createElement("div");
+Clock.className = "Clock";
+const ClockText = document.createElement("div");
+const ClockValue = document.createElement("div");
+ClockValue.className = "ClockValue";
+ClockValue.dataset.clock = Job.Id;
+ClockValue.textContent = FormatClock(ElapsedFor(Job));
+const ClockNote = document.createElement("div");
+ClockNote.className = "ClockNote";
+ClockNote.textContent = Job.RunningSince ? "running" : "paused";
+ClockText.appendChild(ClockValue);
+ClockText.appendChild(ClockNote);
+
+const ClockBtn = document.createElement("button");
+ClockBtn.className = "ClockBtn";
+if (Job.RunningSince) { ClockBtn.classList.add("Stop"); }
+ClockBtn.textContent = Job.RunningSince ? "stop" : "start";
+ClockBtn.addEventListener("click", function () { ToggleTimer(Job.Id); });
+
+Clock.appendChild(ClockText);
+Clock.appendChild(ClockBtn);
+Card.appendChild(Clock);
+
+if (Job.Tasks.length > 0) {
+const List = document.createElement("ul");
+List.className = "Tasks";
+Job.Tasks.forEach(function (Task) {
+const Item = document.createElement("li");
+if (Task.Done) { Item.classList.add("Complete"); }
+
+const Tick = document.createElement("button");
+Tick.className = "TaskTick";
+Tick.innerHTML = TickIcon;
+Tick.setAttribute("aria-label", "toggle task");
+Tick.addEventListener("click", function () { ToggleTask(Job.Id, Task.Id); });
+
+const Label = document.createElement("button");
+Label.className = "TaskLabel";
+Label.textContent = Task.Label;
+Label.addEventListener("click", function () { ToggleTask(Job.Id, Task.Id); });
+
+const Kill = document.createElement("button");
+Kill.className = "TaskKill";
+Kill.textContent = "\u00d7";
+Kill.setAttribute("aria-label", "remove task");
+Kill.addEventListener("click", function () { RemoveTask(Job.Id, Task.Id); });
+
+Item.appendChild(Tick);
+Item.appendChild(Label);
+Item.appendChild(Kill);
+List.appendChild(Item);
+});
+Card.appendChild(List);
+}
+
+const TaskAdd = document.createElement("div");
+TaskAdd.className = "TaskAdd";
+const TaskInput = document.createElement("input");
+TaskInput.className = "Field";
+TaskInput.type = "text";
+TaskInput.placeholder = "add a task";
+TaskInput.autocomplete = "off";
+TaskInput.addEventListener("keydown", function (Event) {
+if (Event.key === "Enter") { AddTask(Job.Id, TaskInput.value); }
+});
+const TaskBtn = document.createElement("button");
+TaskBtn.textContent = "add";
+TaskBtn.addEventListener("click", function () { AddTask(Job.Id, TaskInput.value); });
+TaskAdd.appendChild(TaskInput);
+TaskAdd.appendChild(TaskBtn);
+Card.appendChild(TaskAdd);
+
+const Foot = document.createElement("div");
+Foot.className = "JobFoot";
+const DoneCount = Job.Tasks.filter(function (Task) { return Task.Done; }).length;
+const Summary = document.createElement("span");
+Summary.textContent = Job.Tasks.length === 0 ? "no tasks yet" : DoneCount + " of " + Job.Tasks.length + " done \u00b7 " + FormatShort(ElapsedFor(Job)) + " total";
+const Delete = document.createElement("button");
+Delete.className = "Btn BtnDanger";
+Delete.textContent = "delete";
+Delete.addEventListener("click", function () { RemoveJob(Job.Id); });
+Foot.appendChild(Summary);
+Foot.appendChild(Delete);
+Card.appendChild(Foot);
+
+return Card;
+}
+
+function RenderTotals() {
+const OpenTasks = Jobs.reduce(function (Sum, Job) {
+return Sum + Job.Tasks.filter(function (Task) { return !Task.Done; }).length;
+}, 0);
+const TotalSeconds = Jobs.reduce(function (Sum, Job) { return Sum + ElapsedFor(Job); }, 0);
+document.getElementById("TotalJobs").textContent = String(Jobs.length);
+document.getElementById("TotalTime").textContent = FormatShort(TotalSeconds);
+document.getElementById("TotalTasks").textContent = String(OpenTasks);
+}
+
+function Render() {
+const List = document.getElementById("JobList");
+List.replaceChildren();
+
+if (Jobs.length === 0) {
+const Empty = document.createElement("div");
+Empty.className = "Empty";
+Empty.textContent = "no commissions tracked yet. add one above.";
+List.appendChild(Empty);
+} else {
+Jobs.forEach(function (Job) { List.appendChild(BuildJobCard(Job)); });
+}
+
+RenderTotals();
+}
+
+function TickClocks() {
+Jobs.forEach(function (Job) {
+if (!Job.RunningSince) { return; }
+const Element = document.querySelector('[data-clock="' + Job.Id + '"]');
+if (Element) { Element.textContent = FormatClock(ElapsedFor(Job)); }
+});
+}
+
+function BuildExport() {
+const Payload = Jobs
+.filter(function (Job) { return Job.Status !== "Hidden"; })
+.map(function (Job) {
+return {
+Project: Job.Project,
+Client: Job.Client,
+Status: Job.Status,
+LoggedSeconds: ElapsedFor(Job),
+Tasks: Job.Tasks.map(function (Task) {
+return { Label: Task.Label, Done: Boolean(Task.Done) };
+})
+};
+});
+
+const Lines = ["const ActiveCommissions = ["];
+Payload.forEach(function (Job, Index) {
+Lines.push("{");
+Lines.push('Project: ' + JSON.stringify(Job.Project) + ',');
+Lines.push('Client: ' + JSON.stringify(Job.Client) + ',');
+Lines.push('Status: ' + JSON.stringify(Job.Status) + ',');
+Lines.push('LoggedSeconds: ' + Job.LoggedSeconds + ',');
+if (Job.Tasks.length === 0) {
+Lines.push('Tasks: []');
+} else {
+Lines.push('Tasks: [');
+Job.Tasks.forEach(function (Task, TaskIndex) {
+Lines.push('{ Label: ' + JSON.stringify(Task.Label) + ', Done: ' + Task.Done + ' }' + (TaskIndex === Job.Tasks.length - 1 ? "" : ","));
+});
+Lines.push(']');
+}
+Lines.push("}" + (Index === Payload.length - 1 ? "" : ","));
+});
+Lines.push("];");
+return Lines.join("\n");
+}
+
+document.getElementById("AddJob").addEventListener("click", AddJob);
+document.getElementById("NewClient").addEventListener("keydown", function (Event) {
+if (Event.key === "Enter") { AddJob(); }
+});
+
+document.getElementById("ExportBtn").addEventListener("click", function () {
+const Output = document.getElementById("ExportOut");
+Output.value = BuildExport();
+Output.classList.add("Shown");
+Flash("generated, copy it into index.html");
+});
+
+document.getElementById("CopyBtn").addEventListener("click", function () {
+const Output = document.getElementById("ExportOut");
+if (Output.value === "") { Output.value = BuildExport(); Output.classList.add("Shown"); }
+if (navigator.clipboard && navigator.clipboard.writeText) {
+navigator.clipboard.writeText(Output.value)
+.then(function () { Flash("copied"); })
+.catch(function () { Flash("select the text and copy manually", true); });
+return;
+}
+Output.select();
+Flash("select the text and copy manually", true);
+});
+
+document.getElementById("WipeBtn").addEventListener("click", function () {
+if (!window.confirm("wipe every commission and all logged time?")) { return; }
+Jobs = [];
+SaveJobs();
+Render();
+Flash("cleared");
+});
+
+window.addEventListener("beforeunload", SaveJobs);
+
+Jobs = LoadJobs();
+Render();
+window.setInterval(TickClocks, 1000);
+window.setInterval(SaveJobs, 30000);
+</script>
+
+</body>
+</html>
